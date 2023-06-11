@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
   Button,
+  Image,
 } from "react-native";
 
 // import bgImage from "../assets/images/bgImage.png";
@@ -87,6 +88,16 @@ export const RegistrationScreen = () => {
         >
           <View style={styles.titleWrapper}>
             <Text style={styles.formTitle}>Реєстрація</Text>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              //   onPress={() => setisHiddenPassword(!isHiddenPassword)}
+              style={styles.closeImgBtn}
+            >
+              <Image
+                // style={styles.closeImg}
+                source={require("../assets/images/closeForm.png")}
+              />
+            </TouchableOpacity>
           </View>
           <View>
             <TextInput
@@ -235,6 +246,17 @@ const styles = StyleSheet.create({
     // fontWeight: 500,
     textAlign: "center",
   },
+  closeImgBtn: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    justifyContent: "center",
+    height: "100%",
+  },
+  //   closeImg: {
+  //     width: 16,
+  //     height: 16,
+  //   },
   input: {
     padding: 16,
     paddingBottom: 15,

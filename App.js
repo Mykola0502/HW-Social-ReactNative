@@ -28,8 +28,8 @@ export default function App() {
       // onLayout={onLayoutRootView}
     >
       <ImageBackground source={bgImage} style={styles.image}>
-        {/* <RegistrationScreen /> */}
-        <LoginScreen />
+        <RegistrationScreen />
+        {/* <LoginScreen /> */}
         {/* <StatusBar style="auto" /> */}
       </ImageBackground>
       <StatusBar style="auto" />

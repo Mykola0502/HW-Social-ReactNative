@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
   Button,
+  Image,
 } from "react-native";
 
 // import bgImage from "../assets/images/bgImage.png";
@@ -70,6 +71,16 @@ export const LoginScreen = () => {
         >
           <View style={styles.titleWrapper}>
             <Text style={styles.formTitle}>Увійти</Text>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              //   onPress={() => setisHiddenPassword(!isHiddenPassword)}
+              style={styles.closeImgBtn}
+            >
+              <Image
+                // style={styles.closeImg}
+                source={require("../assets/images/closeForm.png")}
+              />
+            </TouchableOpacity>
           </View>
           <View>
             <TextInput
@@ -183,6 +194,17 @@ const styles = StyleSheet.create({
     position: "relative",
     marginBottom: 32,
   },
+  closeImgBtn: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    justifyContent: "center",
+    height: "100%",
+  },
+  //   closeImg: {
+  //     width: 16,
+  //     height: 16,
+  //   },
   formTitle: {
     color: "#212121",
     fontFamily: "Roboto-Medium",
