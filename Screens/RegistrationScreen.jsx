@@ -90,7 +90,23 @@ export const RegistrationScreen = () => {
             style={[styles.input, { marginBottom: 16 }]}
             placeholder="Логін"
             placeholderTextColor="#BDBDBD"
-            onFocus={() => setIsShowKeyboard(true)}
+            onFocus={(event) => {
+              setIsShowKeyboard(true);
+              event.target.setNativeProps({
+                style: {
+                  ...styles.input,
+                  backgroundColor: "#FFFFFF",
+                  borderColor: "#FF6C00",
+                },
+              });
+            }}
+            onBlur={(event) =>
+              event.target.setNativeProps({
+                style: {
+                  ...styles.input,
+                },
+              })
+            }
             value={state.login}
             onChangeText={(value) =>
               setState((prevState) => ({ ...prevState, login: value }))
@@ -101,7 +117,23 @@ export const RegistrationScreen = () => {
             style={[styles.input, { marginBottom: 16 }]}
             placeholder="Адреса електронної пошти"
             placeholderTextColor="#BDBDBD"
-            onFocus={() => setIsShowKeyboard(true)}
+            onFocus={(event) => {
+              setIsShowKeyboard(true);
+              event.target.setNativeProps({
+                style: {
+                  ...styles.input,
+                  backgroundColor: "#FFFFFF",
+                  borderColor: "#FF6C00",
+                },
+              });
+            }}
+            onBlur={(event) =>
+              event.target.setNativeProps({
+                style: {
+                  ...styles.input,
+                },
+              })
+            }
             value={state.email}
             onChangeText={(value) =>
               setState((prevState) => ({ ...prevState, email: value }))
@@ -114,7 +146,23 @@ export const RegistrationScreen = () => {
               placeholder="Пароль"
               placeholderTextColor="#BDBDBD"
               secureTextEntry={isHiddenPassword ? true : false}
-              onFocus={() => setIsShowKeyboard(true)}
+              onFocus={(event) => {
+                setIsShowKeyboard(true);
+                event.target.setNativeProps({
+                  style: {
+                    ...styles.input,
+                    backgroundColor: "#FFFFFF",
+                    borderColor: "#FF6C00",
+                  },
+                });
+              }}
+              onBlur={(event) =>
+                event.target.setNativeProps({
+                  style: {
+                    ...styles.input,
+                  },
+                })
+              }
               value={state.password}
               onChangeText={(value) =>
                 setState((prevState) => ({ ...prevState, password: value }))
