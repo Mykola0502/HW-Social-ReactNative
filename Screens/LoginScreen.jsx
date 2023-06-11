@@ -17,17 +17,14 @@ import {
 // import bgImage from "../assets/images/bgImage.png";
 
 const initialState = {
-  login: "",
   email: "",
   password: "",
 };
 
-export const RegistrationScreen = () => {
+export const LoginScreen = () => {
   console.log(Platform.OS);
-  // console.log(Keyboard.isVisible());
 
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  // const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [isHiddenPassword, setisHiddenPassword] = useState(true);
   const [state, setState] = useState(initialState);
 
@@ -42,31 +39,18 @@ export const RegistrationScreen = () => {
     setState(initialState);
   };
 
-  // // Обробник події показу клавіатури
-  // const keyboardDidShow = (event) => {
-  //   const keyboardHeightNew = event.endCoordinates.height;
-  //   setKeyboardHeight(keyboardHeightNew);
-  // };
-
   const keyboardDidHide = () => {
     keyboardHide();
-    // setKeyboardHeight(0);
     console.log("Клавіатура схована");
   };
 
   useEffect(() => {
-    // const keyboardDidShowListener = Keyboard.addListener(
-    //   "keyboardDidShow",
-    //   keyboardDidShow
-    // );
-
     const keyboardDidHideListener = Keyboard.addListener(
       "keyboardDidHide",
       keyboardDidHide
     );
 
     return () => {
-      // keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
   }, []);
@@ -81,22 +65,10 @@ export const RegistrationScreen = () => {
         <View
           style={{
             ...styles.form,
-            // marginBottom: isShowKeyboard ? 116 - keyboardHeight : 0,
-            marginBottom: isShowKeyboard ? -142 : 0,
+            marginBottom: isShowKeyboard ? -241 : 0,
           }}
         >
-          <Text style={styles.formTitle}>Реєстрація</Text>
-          <TextInput
-            style={[styles.input, { marginBottom: 16 }]}
-            placeholder="Логін"
-            placeholderTextColor="#BDBDBD"
-            onFocus={() => setIsShowKeyboard(true)}
-            value={state.login}
-            onChangeText={(value) =>
-              setState((prevState) => ({ ...prevState, login: value }))
-            }
-            // onSubmitEditing={keyboardHide}
-          />
+          <Text style={styles.formTitle}>Увійти</Text>
           <TextInput
             style={[styles.input, { marginBottom: 16 }]}
             placeholder="Адреса електронної пошти"
@@ -106,7 +78,6 @@ export const RegistrationScreen = () => {
             onChangeText={(value) =>
               setState((prevState) => ({ ...prevState, email: value }))
             }
-            // onSubmitEditing={keyboardHide}
           />
           <View style={styles.inputPasswordWrapper}>
             <TextInput
@@ -119,7 +90,6 @@ export const RegistrationScreen = () => {
               onChangeText={(value) =>
                 setState((prevState) => ({ ...prevState, password: value }))
               }
-              // onSubmitEditing={keyboardHide}
             />
             <TouchableOpacity
               activeOpacity={0.7}
@@ -134,13 +104,15 @@ export const RegistrationScreen = () => {
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={onSubmit}
-            style={styles.registerBtn}
+            style={styles.loginBtn}
           >
-            <Text style={styles.textRegisterBtn}>Зареєстуватися</Text>
+            <Text style={styles.textLoginBtn}>Увійти</Text>
           </TouchableOpacity>
           <View style={styles.containerInfo}>
-            <Text style={styles.textInfo}>Вже є акаунт? </Text>
-            <Text style={[styles.textInfo, styles.linkLogin]}>Увійти</Text>
+            <Text style={styles.textInfo}>Немає акаунту? </Text>
+            <Text style={[styles.textInfo, styles.linkLogin]}>
+              Зареєструватися
+            </Text>
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -163,9 +135,9 @@ const styles = StyleSheet.create({
   //   width: "100%",
   // },
   form: {
-    paddingTop: 92,
+    paddingTop: 32,
     paddingHorizontal: 16,
-    paddingBottom: 45,
+    paddingBottom: 144,
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -213,7 +185,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     // fontWeight: 400,
   },
-  registerBtn: {
+  loginBtn: {
     marginTop: 43,
     marginBottom: 16,
     borderRadius: 100,
@@ -228,7 +200,7 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  textRegisterBtn: {
+  textLoginBtn: {
     paddingVertical: 16,
     color: Platform.OS === "ios" ? "#0000ff" : "white",
     fontFamily: "Roboto-Regular",
@@ -236,7 +208,6 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     // fontWeight: 400,
     textAlign: "center",
-    // backgroundColor: "#000000c0",
   },
   containerInfo: {
     flexDirection: "row",

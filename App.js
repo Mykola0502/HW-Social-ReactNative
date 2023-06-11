@@ -5,6 +5,7 @@ import { useFonts } from "expo-font";
 // import * as Font from "expo-font";
 
 import { RegistrationScreen } from "./Screens/RegistrationScreen";
+import { LoginScreen } from "./Screens/LoginScreen";
 
 import bgImage from "./assets/images/bgImage.png";
 
@@ -27,7 +28,8 @@ export default function App() {
       // onLayout={onLayoutRootView}
     >
       <ImageBackground source={bgImage} style={styles.image}>
-        <RegistrationScreen />
+        {/* <RegistrationScreen /> */}
+        <LoginScreen />
         {/* <StatusBar style="auto" /> */}
       </ImageBackground>
       <StatusBar style="auto" />
