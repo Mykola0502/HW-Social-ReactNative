@@ -78,7 +78,7 @@ export const LoginScreen = () => {
             >
               <Image
                 // style={styles.closeImg}
-                source={require("../../assets/images/closeForm.png")}
+                source={require("../../assets/icons/closeForm.png")}
               />
             </TouchableOpacity>
           </View>

@@ -6,6 +6,7 @@ import { useFonts } from "expo-font";
 
 import { RegistrationScreen } from "./Screens/auth/RegistrationScreen";
 import { LoginScreen } from "./Screens/auth/LoginScreen";
+import { PostsScreen } from "./Screens/auth/PostsScreen";
 
 import bgImage from "./assets/images/bgImage.png";
 
@@ -29,7 +30,8 @@ export default function App() {
     >
       <ImageBackground source={bgImage} style={styles.image}>
         {/* <RegistrationScreen /> */}
-        <LoginScreen />
+        {/* <LoginScreen /> */}
+        <PostsScreen />
         {/* <StatusBar style="auto" /> */}
       </ImageBackground>
       <StatusBar style="auto" />
