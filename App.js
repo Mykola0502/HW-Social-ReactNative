@@ -10,7 +10,7 @@ import { LoginScreen } from "./Screens/LoginScreen";
 import bgImage from "./assets/images/bgImage.png";
 
 export default function App() {
-  console.log("Android");
+  // console.log("Android");
 
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
