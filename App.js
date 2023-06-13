@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import { useFonts } from "expo-font";
 // import * as Font from "expo-font";
 
-import { RegistrationScreen } from "./Screens/RegistrationScreen";
-import { LoginScreen } from "./Screens/LoginScreen";
+import { RegistrationScreen } from "./Screens/auth/RegistrationScreen";
+import { LoginScreen } from "./Screens/auth/LoginScreen";
 
 import bgImage from "./assets/images/bgImage.png";
 
@@ -28,8 +28,8 @@ export default function App() {
       // onLayout={onLayoutRootView}
     >
       <ImageBackground source={bgImage} style={styles.image}>
-        <RegistrationScreen />
-        {/* <LoginScreen /> */}
+        {/* <RegistrationScreen /> */}
+        <LoginScreen />
         {/* <StatusBar style="auto" /> */}
       </ImageBackground>
       <StatusBar style="auto" />
