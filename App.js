@@ -4,12 +4,16 @@ import React from "react";
 import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import { useFonts } from "expo-font";
 // import * as Font from "expo-font";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
 import { RegistrationScreen } from "./Screens/auth/RegistrationScreen";
 import { LoginScreen } from "./Screens/auth/LoginScreen";
 import { PostsScreen } from "./Screens/auth/PostsScreen";
 
 import bgImage from "./assets/images/bgImage.png";
+
+const AuthStack = createStackNavigator();
 
 export default function App() {
   // console.log("Android");
@@ -25,18 +29,24 @@ export default function App() {
   }
 
   return (
-    <View
-      style={styles.container}
-      // onLayout={onLayoutRootView}
-    >
-      <ImageBackground source={bgImage} style={styles.image}>
-        <RegistrationScreen />
-        {/* <LoginScreen /> */}
-        {/* <PostsScreen /> */}
-        {/* <StatusBar style="auto" /> */}
-      </ImageBackground>
-      <StatusBar style="auto" />
-    </View>
+    // <View
+    //   style={styles.container}
+    //   // onLayout={onLayoutRootView}
+    // >
+    //   <ImageBackground source={bgImage} style={styles.image}>
+    //     <RegistrationScreen />
+    //     {/* <LoginScreen /> */}
+    //     {/* <PostsScreen /> */}
+    //     {/* <StatusBar style="auto" /> */}
+    //   </ImageBackground>
+    //   <StatusBar style="auto" />
+    // </View>
+    <NavigationContainer>
+      <AuthStack.Navigator>
+        <AuthStack.Screen name="Login" component={LoginScreen} />
+        <AuthStack.Screen name="Register" component={RegistrationScreen} />
+      </AuthStack.Navigator>
+    </NavigationContainer>
   );
 }
 
