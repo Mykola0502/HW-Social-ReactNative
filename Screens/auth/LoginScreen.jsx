@@ -22,8 +22,9 @@ const initialState = {
   password: "",
 };
 
-export const LoginScreen = () => {
+export const LoginScreen = ({ navigation }) => {
   console.log(Platform.OS);
+  console.log(navigation);
 
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [isHiddenPassword, setisHiddenPassword] = useState(true);
@@ -160,9 +161,14 @@ export const LoginScreen = () => {
                 </TouchableOpacity>
               </View>
               <View style={styles.containerInfo}>
-                <Text style={styles.textInfo}>Немає акаунту? </Text>
-                <Text style={[styles.textInfo, styles.linkLogin]}>
-                  Зареєструватися
+                <Text style={styles.textInfo}>
+                  Немає акаунту?{" "}
+                  <Text
+                    style={styles.linkLogin}
+                    onPress={() => navigation.navigate("Register")}
+                  >
+                    Зареєструватися
+                  </Text>
                 </Text>
               </View>
             </View>
@@ -277,9 +283,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   containerInfo: {
-    flexDirection: "row",
     justifyContent: "center",
-    alignItems: "baseline",
+    alignItems: "center",
   },
   textInfo: {
     color: "#1B4371",
@@ -287,7 +292,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     // fontWeight: 400,
-    textAlign: "center",
+    // textAlign: "center",
   },
   linkLogin: {
     color: "#0000ff",

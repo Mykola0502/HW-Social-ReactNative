@@ -23,7 +23,7 @@ const initialState = {
   password: "",
 };
 
-export const RegistrationScreen = () => {
+export const RegistrationScreen = ({ navigation }) => {
   console.log(Platform.OS);
   // console.log(Keyboard.isVisible());
 
@@ -73,18 +73,6 @@ export const RegistrationScreen = () => {
   }, []);
 
   return (
-    // <View
-    //   style={styles.container}
-    //   // onLayout={onLayoutRootView}
-    // >
-    //   <ImageBackground source={bgImage} style={styles.image}>
-    //     <RegistrationScreen />
-    //     {/* <LoginScreen /> */}
-    //     {/* <PostsScreen /> */}
-    //     {/* <StatusBar style="auto" /> */}
-    //   </ImageBackground>
-    //   <StatusBar style="auto" />
-    // </View>
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
         <ImageBackground source={bgImage} style={styles.image}>
@@ -218,8 +206,15 @@ export const RegistrationScreen = () => {
                 </TouchableOpacity>
               </View>
               <View style={styles.containerInfo}>
-                <Text style={styles.textInfo}>Вже є акаунт? </Text>
-                <Text style={[styles.textInfo, styles.linkLogin]}>Увійти</Text>
+                <Text style={styles.textInfo}>
+                  Вже є акаунт?{" "}
+                  <Text
+                    style={styles.linkLogin}
+                    onPress={() => navigation.navigate("Login")}
+                  >
+                    Увійти
+                  </Text>
+                </Text>
               </View>
             </View>
           </KeyboardAvoidingView>
@@ -334,9 +329,8 @@ const styles = StyleSheet.create({
     // backgroundColor: "#000000c0",
   },
   containerInfo: {
-    flexDirection: "row",
     justifyContent: "center",
-    alignItems: "baseline",
+    alignItems: "center",
   },
   textInfo: {
     color: "#1B4371",
@@ -344,7 +338,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     // fontWeight: 400,
-    textAlign: "center",
+    // textAlign: "center",
   },
   linkLogin: {
     color: "#0000ff",
