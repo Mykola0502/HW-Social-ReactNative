@@ -15,7 +15,7 @@ import {
   Image,
 } from "react-native";
 
-// import bgImage from "../assets/images/bgImage.png";
+import bgImage from "../../assets/images/bgImage.png";
 
 const initialState = {
   login: "",
@@ -73,158 +73,176 @@ export const RegistrationScreen = () => {
   }, []);
 
   return (
-    // <View style={styles.container}>
-    <TouchableWithoutFeedback onPress={keyboardHide}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <View
-          style={{
-            ...styles.formWrapper,
-            // marginBottom: isShowKeyboard ? 116 - keyboardHeight : 0,
-            marginBottom: isShowKeyboard ? -142 : 0,
-          }}
-        >
-          <View style={styles.titleWrapper}>
-            <Text style={styles.formTitle}>Реєстрація</Text>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              //   onPress={() => setisHiddenPassword(!isHiddenPassword)}
-              style={styles.closeImgBtn}
-            >
-              <Image
-                // style={styles.closeImg}
-                source={require("../../assets/icons/closeForm.png")}
-              />
-            </TouchableOpacity>
-          </View>
-          <View>
-            <TextInput
-              style={[styles.input, { marginBottom: 16 }]}
-              placeholder="Логін"
-              placeholderTextColor="#BDBDBD"
-              onFocus={(event) => {
-                setIsShowKeyboard(true);
-                event.target.setNativeProps({
-                  style: {
-                    ...styles.input,
-                    backgroundColor: "#FFFFFF",
-                    borderColor: "#FF6C00",
-                  },
-                });
-              }}
-              onBlur={(event) =>
-                event.target.setNativeProps({
-                  style: {
-                    ...styles.input,
-                  },
-                })
-              }
-              value={state.login}
-              onChangeText={(value) =>
-                setState((prevState) => ({ ...prevState, login: value }))
-              }
-              // onSubmitEditing={keyboardHide}
-            />
-            <TextInput
-              style={[styles.input, { marginBottom: 16 }]}
-              placeholder="Адреса електронної пошти"
-              placeholderTextColor="#BDBDBD"
-              onFocus={(event) => {
-                setIsShowKeyboard(true);
-                event.target.setNativeProps({
-                  style: {
-                    ...styles.input,
-                    backgroundColor: "#FFFFFF",
-                    borderColor: "#FF6C00",
-                  },
-                });
-              }}
-              onBlur={(event) =>
-                event.target.setNativeProps({
-                  style: {
-                    ...styles.input,
-                  },
-                })
-              }
-              value={state.email}
-              onChangeText={(value) =>
-                setState((prevState) => ({ ...prevState, email: value }))
-              }
-              // onSubmitEditing={keyboardHide}
-            />
-            <View style={styles.inputPasswordWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Пароль"
-                placeholderTextColor="#BDBDBD"
-                secureTextEntry={isHiddenPassword ? true : false}
-                onFocus={(event) => {
-                  setIsShowKeyboard(true);
-                  event.target.setNativeProps({
-                    style: {
-                      ...styles.input,
-                      backgroundColor: "#FFFFFF",
-                      borderColor: "#FF6C00",
-                    },
-                  });
-                }}
-                onBlur={(event) =>
-                  event.target.setNativeProps({
-                    style: {
-                      ...styles.input,
-                    },
-                  })
-                }
-                value={state.password}
-                onChangeText={(value) =>
-                  setState((prevState) => ({ ...prevState, password: value }))
-                }
-                // onSubmitEditing={keyboardHide}
-              />
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => setisHiddenPassword(!isHiddenPassword)}
-                style={styles.passwordBtn}
-              >
-                <Text style={styles.passwordBtnText}>
-                  {isHiddenPassword ? "Показати" : "Приховати"}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={onSubmit}
-              style={styles.registerBtn}
-            >
-              <Text style={styles.textRegisterBtn}>Зареєстуватися</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.containerInfo}>
-            <Text style={styles.textInfo}>Вже є акаунт? </Text>
-            <Text style={[styles.textInfo, styles.linkLogin]}>Увійти</Text>
-          </View>
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    // <View
+    //   style={styles.container}
+    //   // onLayout={onLayoutRootView}
+    // >
+    //   <ImageBackground source={bgImage} style={styles.image}>
+    //     <RegistrationScreen />
+    //     {/* <LoginScreen /> */}
+    //     {/* <PostsScreen /> */}
+    //     {/* <StatusBar style="auto" /> */}
+    //   </ImageBackground>
+    //   <StatusBar style="auto" />
     // </View>
+    <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
+        <ImageBackground source={bgImage} style={styles.image}>
+          <KeyboardAvoidingView
+            style={{ flex: 1, justifyContent: "flex-end" }}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+          >
+            <View
+              style={{
+                ...styles.formWrapper,
+                // marginBottom: isShowKeyboard ? 116 - keyboardHeight : 0,
+                marginBottom: isShowKeyboard ? -142 : 0,
+              }}
+            >
+              <View style={styles.titleWrapper}>
+                <Text style={styles.formTitle}>Реєстрація</Text>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  //   onPress={() => setisHiddenPassword(!isHiddenPassword)}
+                  style={styles.closeImgBtn}
+                >
+                  <Image
+                    // style={styles.closeImg}
+                    source={require("../../assets/icons/closeForm.png")}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                <TextInput
+                  style={[styles.input, { marginBottom: 16 }]}
+                  placeholder="Логін"
+                  placeholderTextColor="#BDBDBD"
+                  onFocus={(event) => {
+                    setIsShowKeyboard(true);
+                    event.target.setNativeProps({
+                      style: {
+                        ...styles.input,
+                        backgroundColor: "#FFFFFF",
+                        borderColor: "#FF6C00",
+                      },
+                    });
+                  }}
+                  onBlur={(event) =>
+                    event.target.setNativeProps({
+                      style: {
+                        ...styles.input,
+                      },
+                    })
+                  }
+                  value={state.login}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, login: value }))
+                  }
+                  // onSubmitEditing={keyboardHide}
+                />
+                <TextInput
+                  style={[styles.input, { marginBottom: 16 }]}
+                  placeholder="Адреса електронної пошти"
+                  placeholderTextColor="#BDBDBD"
+                  onFocus={(event) => {
+                    setIsShowKeyboard(true);
+                    event.target.setNativeProps({
+                      style: {
+                        ...styles.input,
+                        backgroundColor: "#FFFFFF",
+                        borderColor: "#FF6C00",
+                      },
+                    });
+                  }}
+                  onBlur={(event) =>
+                    event.target.setNativeProps({
+                      style: {
+                        ...styles.input,
+                      },
+                    })
+                  }
+                  value={state.email}
+                  onChangeText={(value) =>
+                    setState((prevState) => ({ ...prevState, email: value }))
+                  }
+                  // onSubmitEditing={keyboardHide}
+                />
+                <View style={styles.inputPasswordWrapper}>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Пароль"
+                    placeholderTextColor="#BDBDBD"
+                    secureTextEntry={isHiddenPassword ? true : false}
+                    onFocus={(event) => {
+                      setIsShowKeyboard(true);
+                      event.target.setNativeProps({
+                        style: {
+                          ...styles.input,
+                          backgroundColor: "#FFFFFF",
+                          borderColor: "#FF6C00",
+                        },
+                      });
+                    }}
+                    onBlur={(event) =>
+                      event.target.setNativeProps({
+                        style: {
+                          ...styles.input,
+                        },
+                      })
+                    }
+                    value={state.password}
+                    onChangeText={(value) =>
+                      setState((prevState) => ({
+                        ...prevState,
+                        password: value,
+                      }))
+                    }
+                    // onSubmitEditing={keyboardHide}
+                  />
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={() => setisHiddenPassword(!isHiddenPassword)}
+                    style={styles.passwordBtn}
+                  >
+                    <Text style={styles.passwordBtnText}>
+                      {isHiddenPassword ? "Показати" : "Приховати"}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  onPress={onSubmit}
+                  style={styles.registerBtn}
+                >
+                  <Text style={styles.textRegisterBtn}>Зареєстуватися</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.containerInfo}>
+                <Text style={styles.textInfo}>Вже є акаунт? </Text>
+                <Text style={[styles.textInfo, styles.linkLogin]}>Увійти</Text>
+              </View>
+            </View>
+          </KeyboardAvoidingView>
+        </ImageBackground>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "#fff",
+    backgroundColor: "#fff",
     // alignItems: "center",
-    justifyContent: "flex-end",
+    // justifyContent: "flex-end",
   },
-  // image: {
-  //   flex: 1,
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   width: "100%",
-  // },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "flex-end",
+    // alignItems: "center",
+    // width: "100%",
+  },
   formWrapper: {
     paddingTop: 92,
     paddingHorizontal: 16,
