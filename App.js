@@ -4,14 +4,15 @@ import React from "react";
 import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import { useFonts } from "expo-font";
 // import * as Font from "expo-font";
-import { createStackNavigator } from "@react-navigation/stack";
+
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import { RegistrationScreen } from "./Screens/auth/RegistrationScreen";
 import { LoginScreen } from "./Screens/auth/LoginScreen";
-import { PostsScreen } from "./Screens/auth/PostsScreen";
+import { PostsScreen } from "./Screens/mainScreen/PostsScreen";
 
-import bgImage from "./assets/images/bgImage.png";
+// import bgImage from "./assets/images/bgImage.png";
 
 const AuthStack = createStackNavigator();
 
