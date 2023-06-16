@@ -20,6 +20,32 @@ import { ProfileScreen } from "./Screens/mainScreen/ProfileScreen";
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
+const useRoute = (isAuth) => {
+  if (!isAuth) {
+    return (
+      <AuthStack.Navigator>
+        <AuthStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <AuthStack.Screen
+          name="Register"
+          component={RegistrationScreen}
+          options={{ headerShown: false }}
+        />
+      </AuthStack.Navigator>
+    );
+  }
+  return (
+    <MainTab.Navigator>
+      <MainTab.Screen name="Posts" component={PostsScreen} />
+      <MainTab.Screen name="Create" component={CreateScreen} />
+      <MainTab.Screen name="Profile" component={ProfileScreen} />
+    </MainTab.Navigator>
+  );
+};
+
 export default function App() {
   // console.log("Android");
 
@@ -28,6 +54,8 @@ export default function App() {
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
   });
+
+  const routing = useRoute({});
 
   if (!fontsLoaded) {
     return null;
@@ -71,13 +99,18 @@ export default function App() {
     /**
      *        нижня навігація
      */
-    <NavigationContainer>
-      <MainTab.Navigator>
-        <MainTab.Screen name="Posts" component={PostsScreen} />
-        <MainTab.Screen name="Create" component={CreateScreen} />
-        <MainTab.Screen name="Profile" component={ProfileScreen} />
-      </MainTab.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <MainTab.Navigator>
+    //     <MainTab.Screen name="Posts" component={PostsScreen} />
+    //     <MainTab.Screen name="Create" component={CreateScreen} />
+    //     <MainTab.Screen name="Profile" component={ProfileScreen} />
+    //   </MainTab.Navigator>
+    // </NavigationContainer>
+
+    /**
+     *
+     */
+    <NavigationContainer>{routing}</NavigationContainer>
   );
 }
 
