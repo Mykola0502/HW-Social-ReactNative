@@ -16,7 +16,7 @@ import {
   Image,
 } from "react-native";
 
-export const PostScreen = () => {
+export const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <Text>ProfileScreen</Text>

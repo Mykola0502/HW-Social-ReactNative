@@ -19,7 +19,7 @@ import {
 export const CreateScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>CreateScreen</Text>;
+      <Text>CreateScreen</Text>
     </View>
   );
 };
