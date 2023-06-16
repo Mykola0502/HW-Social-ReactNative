@@ -1,50 +1,11 @@
-import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import { useFonts } from "expo-font";
-// import * as Font from "expo-font";
-
+import "react-native-gesture-handler";
+import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { RegistrationScreen } from "./Screens/auth/RegistrationScreen";
-import { LoginScreen } from "./Screens/auth/LoginScreen";
-import { PostsScreen } from "./Screens/mainScreen/PostsScreen";
-import { CreateScreen } from "./Screens/mainScreen/CreateScreen";
-import { ProfileScreen } from "./Screens/mainScreen/ProfileScreen";
-
-// import bgImage from "./assets/images/bgImage.png";
-
-const AuthStack = createStackNavigator();
-const MainTab = createBottomTabNavigator();
-
-const useRoute = (isAuth) => {
-  if (!isAuth) {
-    return (
-      <AuthStack.Navigator>
-        <AuthStack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <AuthStack.Screen
-          name="Register"
-          component={RegistrationScreen}
-          options={{ headerShown: false }}
-        />
-      </AuthStack.Navigator>
-    );
-  }
-  return (
-    <MainTab.Navigator>
-      <MainTab.Screen name="Posts" component={PostsScreen} />
-      <MainTab.Screen name="Create" component={CreateScreen} />
-      <MainTab.Screen name="Profile" component={ProfileScreen} />
-    </MainTab.Navigator>
-  );
-};
+import { useRoute } from "./router";
 
 export default function App() {
   // console.log("Android");
@@ -61,71 +22,5 @@ export default function App() {
     return null;
   }
 
-  return (
-    /**
-     *       без навігації
-     */
-    // <View
-    //   style={styles.container}
-    //   // onLayout={onLayoutRootView}
-    // >
-    //   <ImageBackground source={bgImage} style={styles.image}>
-    //     <RegistrationScreen />
-    //     {/* <LoginScreen /> */}
-    //     {/* <PostsScreen /> */}
-    //     {/* <StatusBar style="auto" /> */}
-    //   </ImageBackground>
-    //   <StatusBar style="auto" />
-    // </View>
-
-    /**
-     *      звичайна навігація
-     */
-    // <NavigationContainer>
-    //   <AuthStack.Navigator>
-    //     <AuthStack.Screen
-    //       name="Login"
-    //       component={LoginScreen}
-    //       options={{ headerShown: false }}
-    //     />
-    //     <AuthStack.Screen
-    //       name="Register"
-    //       component={RegistrationScreen}
-    //       options={{ headerShown: false }}
-    //     />
-    //   </AuthStack.Navigator>
-    // </NavigationContainer>
-
-    /**
-     *        нижня навігація
-     */
-    // <NavigationContainer>
-    //   <MainTab.Navigator>
-    //     <MainTab.Screen name="Posts" component={PostsScreen} />
-    //     <MainTab.Screen name="Create" component={CreateScreen} />
-    //     <MainTab.Screen name="Profile" component={ProfileScreen} />
-    //   </MainTab.Navigator>
-    // </NavigationContainer>
-
-    /**
-     *
-     */
-    <NavigationContainer>{routing}</NavigationContainer>
-  );
+  return <NavigationContainer>{routing}</NavigationContainer>;
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     // alignItems: "center",
-//     // justifyContent: "center",
-//   },
-//   image: {
-//     flex: 1,
-//     resizeMode: "cover",
-//     // alignItems: "center",
-//     // justifyContent: "center",
-//     // width: "100%",
-//   },
-// });

@@ -44,7 +44,7 @@ export const PostsScreen = () => {
           <Text style={styles.userEmail}>email@example.com</Text>
         </View>
       </View>
-      <View style={{ ...styles.line, marginTop: "auto" }} />
+      {/* <View style={{ ...styles.line, marginTop: "auto" }} />
       <View style={styles.controlButtons}>
         <TouchableOpacity
           activeOpacity={0.7}
@@ -53,7 +53,7 @@ export const PostsScreen = () => {
         >
           <Image
             // style={styles.closeImg}
-            source={require("../../assets/icons/grid.png")}
+            source={require("../../assets/icons/posts.png")}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -63,7 +63,7 @@ export const PostsScreen = () => {
         >
           <Image
             style={{ marginHorizontal: 31 }}
-            source={require("../../assets/icons/add.png")}
+            source={require("../../assets/icons/addPost.png")}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -73,10 +73,10 @@ export const PostsScreen = () => {
         >
           <Image
             // style={styles.closeImg}
-            source={require("../../assets/icons/user.png")}
+            source={require("../../assets/icons/profile.png")}
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };
