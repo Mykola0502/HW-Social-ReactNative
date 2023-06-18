@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { RegistrationScreen } from "./Screens/auth/RegistrationScreen";
 import { LoginScreen } from "./Screens/auth/LoginScreen";
 import { PostsScreen } from "./Screens/mainScreen/PostsScreen";
-import { CreateScreen } from "./Screens/mainScreen/CreateScreen";
+import { CreatePostsScreen } from "./Screens/mainScreen/CreatePostsScreen";
 import { ProfileScreen } from "./Screens/mainScreen/ProfileScreen";
 import { LogoTitle } from "./components/LogoTitle";
 
@@ -95,7 +95,7 @@ export const useRoute = (isAuth) => {
       />
       <MainTab.Screen
         name="Create"
-        component={CreateScreen}
+        component={CreatePostsScreen}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Image

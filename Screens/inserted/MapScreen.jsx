@@ -16,10 +16,10 @@ import {
   Image,
 } from "react-native";
 
-export const ProfileScreen = () => {
+export const MapScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>ProfileScreen</Text>
+      <Text>MapScreen</Text>
     </View>
   );
 };

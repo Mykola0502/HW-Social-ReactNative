@@ -16,10 +16,10 @@ import {
   Image,
 } from "react-native";
 
-export const ProfileScreen = () => {
+export const CreatePostsScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>ProfileScreen</Text>
+      <Text>CreatePostsScreen</Text>
     </View>
   );
 };
