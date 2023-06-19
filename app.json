@@ -13,9 +13,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "jsEngine": "jsc",
       "supportsTablet": true
     },
     "android": {
+      "jsEngine": "jsc",
       // "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
