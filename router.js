@@ -35,8 +35,23 @@ export const useRoute = (isAuth) => {
   return (
     <MainTab.Navigator
       screenOptions={{
+        headerStyle: {
+          height: 88,
+          shadowColor: "#000000",
+          shadowOffset: {
+            width: 0,
+            height: 0.5,
+          },
+          shadowOpacity: 0.3,
+          shadowRadius: 0,
+        },
+        headerTitleAlign: "center",
+        headerTitle: (props) => {
+          return <LogoTitle {...props} />;
+        },
         tabBarShowLabel: false,
         tabBarStyle: {
+          //   height: 71,
           paddingTop: 9,
           shadowColor: "#000000",
           shadowOffset: {
@@ -46,6 +61,13 @@ export const useRoute = (isAuth) => {
           shadowOpacity: 0.3,
           shadowRadius: 0,
         },
+        // tabBarIcon: ({ focused, color, size }) => (
+        //   <Image
+        //     source={require("./assets/icons/posts.png")}
+        //     fadeDuration={0}
+        //     style={size}
+        //   />
+        // ),
       }}
     >
       <MainTab.Screen
@@ -53,18 +75,18 @@ export const useRoute = (isAuth) => {
         component={PostsScreen}
         options={{
           title: "Публікації",
-          headerStyle: {
-            height: 88,
-            shadowColor: "#000000",
-            shadowOffset: {
-              width: 0,
-              height: 0.5,
-            },
-            shadowOpacity: 0.3,
-            shadowRadius: 0,
-          },
+          //   headerStyle: {
+          //     height: 88,
+          //     shadowColor: "#000000",
+          //     shadowOffset: {
+          //       width: 0,
+          //       height: 0.5,
+          //     },
+          //     shadowOpacity: 0.3,
+          //     shadowRadius: 0,
+          //   },
           //   headerTintColor: "#212121",
-          headerTitleAlign: "center",
+          //   headerTitleAlign: "center",
           //   headerTitleStyle: {
           //     // paddingVertical: 11,
           //     color: "#212121",
@@ -73,13 +95,13 @@ export const useRoute = (isAuth) => {
           //     lineHeight: 22,
           //     // textAlign: "center",
           //   },
-          headerTitle: (props) => {
-            return <LogoTitle {...props} />;
-          },
+          //   headerTitle: (props) => {
+          //     return <LogoTitle {...props} />;
+          //   },
           headerRight: () => (
             <TouchableOpacity
               style={{ marginRight: 16 }}
-              onPress={() => alert("This is a button!")}
+              onPress={() => alert("This is a logOut-button!")}
             >
               <Image source={require("./assets/icons/logOut.png")} />
             </TouchableOpacity>
@@ -96,7 +118,38 @@ export const useRoute = (isAuth) => {
       <MainTab.Screen
         name="Create"
         component={CreatePostsScreen}
-        options={{
+        options={({ navigation }) => ({
+          title: "Створити публікацію",
+          //   headerStyle: {
+          //     height: 88,
+          //     shadowColor: "#000000",
+          //     shadowOffset: {
+          //       width: 0,
+          //       height: 0.5,
+          //     },
+          //     shadowOpacity: 0.3,
+          //     shadowRadius: 0,
+          //   },
+          //   headerTitleAlign: "center",
+          //   headerTitleStyle: {
+          //     // paddingVertical: 11,
+          //     color: "#212121",
+          //     fontFamily: "Roboto-Medium",
+          //     fontSize: 17,
+          //     lineHeight: 22,
+          //     // textAlign: "center",
+          //   },
+          //   headerTitle: (props) => {
+          //     return <LogoTitle {...props} />;
+          //   },
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{ marginLeft: 16 }}
+              onPress={() => navigation.navigate("Posts")}
+            >
+              <Image source={require("./assets/icons/back.png")} />
+            </TouchableOpacity>
+          ),
           tabBarIcon: ({ focused, color, size }) => (
             <Image
               source={require("./assets/icons/addPost.png")}
@@ -104,8 +157,8 @@ export const useRoute = (isAuth) => {
               style={[size, {}]}
             />
           ),
-          headerShown: false,
-        }}
+          tabBarStyle: { display: "none" },
+        })}
       />
       <MainTab.Screen
         name="Profile"
