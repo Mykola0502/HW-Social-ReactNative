@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   StyleSheet,
@@ -14,14 +14,25 @@ import {
   Dimensions,
   Button,
   Image,
+  FlatList,
 } from "react-native";
 
-export const PostsScreen = () => {
+export const PostsScreen = ({ route }) => {
   console.log(Platform.OS);
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    if (route.params) {
+      setPosts((prevState) => [...prevState, route.params]);
+    }
+  }, [route.params]);
+
+  console.log("posts", posts);
 
   return (
     <View style={styles.container}>
-      <View style={styles.postWrapper}>
+      <View style={styles.userWrapper}>
         <Image
           source={require("../../assets/images/userPhoto.png")}
           style={styles.userPhoto}
@@ -33,6 +44,28 @@ export const PostsScreen = () => {
           <Text style={styles.userEmail}>email@example.com</Text>
         </View>
       </View>
+      <FlatList
+        data={posts}
+        keyExtractor={(item, idx) => idx.toString()}
+        renderItem={({ item }) => (
+          <View style={{ marginTop: 32 }}>
+            <Image source={{ uri: item.photo }} style={styles.postPhoto} />
+            <Text style={styles.postName}>{item.name}</Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Image
+                source={require("../../assets/icons/comments.png")}
+                style={{ width: 24, height: 24 }}
+              />
+              <Text style={styles.commentsCount}>0</Text>
+              <Image
+                source={require("../../assets/icons/mapPin.png")}
+                style={{ width: 24, height: 24 }}
+              />
+              <Text style={styles.place}>{item.place}</Text>
+            </View>
+          </View>
+        )}
+      />
     </View>
   );
 };
@@ -45,7 +78,7 @@ const styles = StyleSheet.create({
     // paddingBottom: 34,
     backgroundColor: "#fff",
   },
-  postWrapper: {
+  userWrapper: {
     flexDirection: "row",
     alignItems: "center",
   },
@@ -66,5 +99,34 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 11,
     lineHeight: 13,
+  },
+  postPhoto: {
+    height: 240,
+    borderRadius: 8,
+    borderWidth: 0.5,
+    borderColor: "#212121",
+  },
+  postName: {
+    marginVertical: 8,
+    color: "#212121",
+    fontSize: 16,
+    lineHeight: 19,
+    fontFamily: "Roboto-Medium",
+  },
+  commentsCount: {
+    marginLeft: 6,
+    marginRight: "auto",
+    color: "#BDBDBD",
+    fontSize: 16,
+    lineHeight: 19,
+    fontFamily: "Roboto-Regular",
+  },
+  place: {
+    marginLeft: 4,
+    color: "#212121",
+    fontSize: 16,
+    lineHeight: 19,
+    fontFamily: "Roboto-Regular",
+    textDecorationLine: "underline",
   },
 });

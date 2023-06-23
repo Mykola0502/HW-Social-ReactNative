@@ -19,41 +19,45 @@ import {
 
 const initialState = {
   name: "",
-  location: "",
+  place: "",
 };
 
 const toggleCameraType = () => {
   console.log("snap");
 };
 
-export const CreatePostsScreen = () => {
+export const CreatePostsScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const isState = state.name !== "" && state.location !== "";
+  const isState = state.name !== "" && state.place !== "";
 
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
 
-  const onSubmit = () => {
-    keyboardHide();
-    console.log(state);
-    setState(initialState);
-  };
-
-  const keyboardDidHide = () => {
-    keyboardHide();
-    console.log("Клавіатура схована");
-  };
+  // const keyboardDidHide = () => {
+  //   keyboardHide();
+  //   // console.log("Клавіатура схована");
+  // };
 
   const takePhoto = async () => {
     const photo = await camera.takePictureAsync();
     setPhoto(photo.uri);
+  };
+
+  const publishPost = () => {
+    // console.log(state);
+    // console.log("navigation", navigation);
+    keyboardHide();
+    const newPost = { ...state, photo };
+    // console.log("newPost", newPost);
+    navigation.navigate("Posts", newPost);
+    setState(initialState);
   };
 
   useEffect(() => {
@@ -63,7 +67,8 @@ export const CreatePostsScreen = () => {
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener(
       "keyboardDidHide",
-      keyboardDidHide
+      // keyboardDidHide
+      keyboardHide
     );
 
     return () => {
@@ -98,7 +103,7 @@ export const CreatePostsScreen = () => {
             >
               <Image
                 source={require("../../assets/icons/camera.png")}
-                style={styles.userPhoto}
+                style={{ width: 24, height: 24 }}
               />
             </TouchableOpacity>
           </Camera>
@@ -138,7 +143,7 @@ export const CreatePostsScreen = () => {
               setState((prevState) => ({ ...prevState, name: value }))
             }
           />
-          <View style={styles.inputLocationWrapper}>
+          <View style={styles.inputPlaceWrapper}>
             <TextInput
               style={{
                 ...styles.input,
@@ -164,22 +169,25 @@ export const CreatePostsScreen = () => {
                   },
                 })
               }
-              value={state.location}
+              value={state.place}
               onChangeText={(value) =>
                 setState((prevState) => ({
                   ...prevState,
-                  location: value,
+                  place: value,
                 }))
               }
             />
-            <View style={styles.locationIconWrapper}>
-              <Image source={require("../../assets/icons/mapPin.png")} />
+            <View style={styles.placeIconWrapper}>
+              <Image
+                source={require("../../assets/icons/mapPin.png")}
+                style={{ width: 24, height: 24 }}
+              />
             </View>
           </View>
           <TouchableOpacity
             disabled={isDisabled}
             activeOpacity={0.8}
-            onPress={onSubmit}
+            onPress={publishPost}
             style={{
               ...styles.publishBtn,
               backgroundColor: isDisabled ? "#F6F6F6" : "#FF6C00",
@@ -203,7 +211,10 @@ export const CreatePostsScreen = () => {
             marginTop: isShowKeyboard ? 32 : "auto",
           }}
         >
-          <Image source={require("../../assets/icons/trash.png")} />
+          <Image
+            source={require("../../assets/icons/trash.png")}
+            style={{ width: 24, height: 24 }}
+          />
         </TouchableOpacity>
       </KeyboardAvoidingView>
       {/* </View> */}
@@ -275,10 +286,10 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     // borderRadius: 8,
   },
-  inputLocationWrapper: {
+  inputPlaceWrapper: {
     position: "relative",
   },
-  locationIconWrapper: {
+  placeIconWrapper: {
     position: "absolute",
     top: 0,
     left: 0,
