@@ -61,7 +61,7 @@ export const CreatePostsScreen = ({ navigation }) => {
     keyboardHide();
     const newPost = { ...state, photo };
     // console.log("newPost", newPost);
-    navigation.navigate("Posts", newPost);
+    navigation.navigate("DefaultScreen", newPost);
     setState(initialState);
   };
 
