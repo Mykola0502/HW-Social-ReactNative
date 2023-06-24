@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Camera, CameraType } from "expo-camera";
+import * as Location from "expo-location";
 
 import {
   StyleSheet,
@@ -47,6 +48,10 @@ export const CreatePostsScreen = ({ navigation }) => {
 
   const takePhoto = async () => {
     const photo = await camera.takePictureAsync();
+    const location = await Location.getCurrentPositionAsync({});
+    console.log("location.latitude", location.coords.latitude);
+    console.log("location.longitude", location.coords.longitude);
+
     setPhoto(photo.uri);
   };
 
@@ -59,6 +64,18 @@ export const CreatePostsScreen = ({ navigation }) => {
     navigation.navigate("Posts", newPost);
     setState(initialState);
   };
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      // let { status } = await Location.requestPermissionsAsync();
+      console.log("status", status);
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        return;
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     isState ? setIsDisabled(false) : setIsDisabled(true);
