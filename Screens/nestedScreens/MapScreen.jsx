@@ -1,4 +1,5 @@
 import React from "react";
+import MapView, { Marker } from "react-native-maps";
 
 import {
   StyleSheet,
@@ -19,7 +20,22 @@ import {
 export const MapScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>MapScreen</Text>
+      <MapView
+        style={{ flex: 1 }}
+        region={{
+          latitude: 50.613622,
+          longitude: 26.25584,
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001,
+        }}
+        mapType="standard"
+        minZoomLevel={15}
+      >
+        <Marker
+          title="foto"
+          coordinate={{ latitude: 50.613622, longitude: 26.25584 }}
+        />
+      </MapView>
     </View>
   );
 };
@@ -27,11 +43,11 @@ export const MapScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 32,
-    paddingHorizontal: 16,
+    // paddingTop: 32,
+    // paddingHorizontal: 16,
     // paddingBottom: 34,
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
     backgroundColor: "#fff",
   },
 });

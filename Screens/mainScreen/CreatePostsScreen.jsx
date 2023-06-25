@@ -30,8 +30,10 @@ const toggleCameraType = () => {
 export const CreatePostsScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [state, setState] = useState(initialState);
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState("");
+  const [location, setLocation] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
 
   const isState = state.name !== "" && state.place !== "";
@@ -49,9 +51,9 @@ export const CreatePostsScreen = ({ navigation }) => {
   const takePhoto = async () => {
     const photo = await camera.takePictureAsync();
     const location = await Location.getCurrentPositionAsync({});
-    console.log("location.latitude", location.coords.latitude);
-    console.log("location.longitude", location.coords.longitude);
-
+    // console.log("location.latitude", location.coords.latitude);
+    // console.log("location.longitude", location.coords.longitude);
+    setLocation(location.coords);
     setPhoto(photo.uri);
   };
 
@@ -59,17 +61,33 @@ export const CreatePostsScreen = ({ navigation }) => {
     // console.log(state);
     // console.log("navigation", navigation);
     keyboardHide();
-    const newPost = { ...state, photo };
-    // console.log("newPost", newPost);
+    const newPost = { ...state, photo, location };
+    console.log("newPost", newPost);
     navigation.navigate("DefaultScreen", newPost);
     setState(initialState);
   };
 
   useEffect(() => {
     (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+
+      console.log("status", status);
+
+      // await MediaLibrary.requestPermissionsAsync();
+
+      // setHasCameraPermission(status === "granted");
+      if (status !== "granted") {
+        console.log("Permission to access Camera was denied");
+        return;
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       // let { status } = await Location.requestPermissionsAsync();
-      console.log("status", status);
+      // console.log("status", status);
       if (status !== "granted") {
         console.log("Permission to access location was denied");
         return;
@@ -92,6 +110,13 @@ export const CreatePostsScreen = ({ navigation }) => {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  // if (hasCameraPermission === null) {
+  //   return <View />;
+  // }
+  // if (hasCameraPermission === false) {
+  //   return <Text>No access to camera</Text>;
+  // }
 
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
