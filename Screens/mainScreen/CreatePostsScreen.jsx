@@ -23,9 +23,9 @@ const initialState = {
   place: "",
 };
 
-const toggleCameraType = () => {
-  console.log("snap");
-};
+// const toggleCameraType = () => {
+//   console.log("snap");
+// };
 
 export const CreatePostsScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);

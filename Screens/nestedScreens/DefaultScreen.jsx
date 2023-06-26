@@ -67,7 +67,7 @@ export const DefaultScreen = ({ route, navigation }) => {
                 <Text style={styles.commentsCount}>0</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate("Map")}
+                onPress={() => navigation.navigate("Map", item.location)}
                 style={{ flexDirection: "row", alignItems: "center" }}
               >
                 <Image

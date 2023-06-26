@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MapView, { Marker } from "react-native-maps";
 
 import {
@@ -17,23 +17,33 @@ import {
   Image,
 } from "react-native";
 
-export const MapScreen = () => {
+export const MapScreen = ({ route }) => {
+  // useEffect(() => {
+  //   if (route.params) {
+  //     console.log("route.params", route.params);
+  //     // setPosts((prevState) => [...prevState, route.params]);
+  //   }
+  // }, [route.params]);
+
   return (
     <View style={styles.container}>
       <MapView
         style={{ flex: 1 }}
         region={{
-          latitude: 50.613622,
-          longitude: 26.25584,
-          latitudeDelta: 0.001,
-          longitudeDelta: 0.001,
+          latitude: route.params.latitude,
+          longitude: route.params.longitude,
+          latitudeDelta: 0.1,
+          longitudeDelta: 0.1,
         }}
         mapType="standard"
         minZoomLevel={15}
       >
         <Marker
           title="foto"
-          coordinate={{ latitude: 50.613622, longitude: 26.25584 }}
+          coordinate={{
+            latitude: route.params.latitude,
+            longitude: route.params.longitude,
+          }}
         />
       </MapView>
     </View>
