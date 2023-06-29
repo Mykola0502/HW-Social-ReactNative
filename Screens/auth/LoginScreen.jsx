@@ -23,8 +23,8 @@ const initialState = {
 };
 
 export const LoginScreen = ({ navigation }) => {
-  console.log(Platform.OS);
-  console.log(navigation);
+  // console.log(Platform.OS);
+  // console.log(navigation);
 
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [isHiddenPassword, setisHiddenPassword] = useState(true);
@@ -43,7 +43,7 @@ export const LoginScreen = ({ navigation }) => {
 
   const keyboardDidHide = () => {
     keyboardHide();
-    console.log("Клавіатура схована");
+    // console.log("Клавіатура схована");
   };
 
   useEffect(() => {

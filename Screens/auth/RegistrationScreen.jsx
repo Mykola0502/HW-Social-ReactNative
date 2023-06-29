@@ -15,6 +15,10 @@ import {
   Image,
 } from "react-native";
 
+import { useDispatch } from "react-redux";
+
+import { authSignUpUser } from "../../redux/auth/authOperations";
+
 import bgImage from "../../assets/images/bgImage.png";
 
 const initialState = {
@@ -24,7 +28,7 @@ const initialState = {
 };
 
 export const RegistrationScreen = ({ navigation }) => {
-  console.log(Platform.OS);
+  // console.log(Platform.OS);
   // console.log(Keyboard.isVisible());
 
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -32,14 +36,17 @@ export const RegistrationScreen = ({ navigation }) => {
   const [isHiddenPassword, setisHiddenPassword] = useState(true);
   const [state, setState] = useState(initialState);
 
+  const dispatch = useDispatch();
+
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
 
-  const onSubmit = () => {
+  const handleSubmit = () => {
     keyboardHide();
     console.log(state);
+    dispatch(authSignUpUser(state));
     setState(initialState);
   };
 
@@ -52,7 +59,7 @@ export const RegistrationScreen = ({ navigation }) => {
   const keyboardDidHide = () => {
     keyboardHide();
     // setKeyboardHeight(0);
-    console.log("Клавіатура схована");
+    // console.log("Клавіатура схована");
   };
 
   useEffect(() => {
@@ -199,7 +206,7 @@ export const RegistrationScreen = ({ navigation }) => {
                 </View>
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  onPress={onSubmit}
+                  onPress={handleSubmit}
                   style={styles.registerBtn}
                 >
                   <Text style={styles.textRegisterBtn}>Зареєстуватися</Text>
