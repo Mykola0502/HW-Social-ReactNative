@@ -18,6 +18,22 @@ export const authSignUpUser =
     }
   };
 
-export const authSignInUser = () => async (dispatch, getState) => {};
+export const authSignInUser =
+  ({ email, password }) =>
+  async (dispatch, getState) => {
+    try {
+      const credentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      //   console.log("credentials", credentials);
+      //   console.log("user", credentials.user);
+      return credentials.user;
+    } catch (error) {
+      console.log("error", error);
+      console.log("error.message", error.message);
+    }
+  };
 
 export const authSignOutUser = () => async (dispatch, getState) => {};

@@ -15,6 +15,10 @@ import {
   Image,
 } from "react-native";
 
+import { useDispatch } from "react-redux";
+
+import { authSignInUser } from "../../redux/auth/authOperations";
+
 import bgImage from "../../assets/images/bgImage.png";
 
 const initialState = {
@@ -30,14 +34,17 @@ export const LoginScreen = ({ navigation }) => {
   const [isHiddenPassword, setisHiddenPassword] = useState(true);
   const [state, setState] = useState(initialState);
 
+  const dispatch = useDispatch();
+
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
 
-  const onSubmit = () => {
+  const handleSubmit = () => {
     keyboardHide();
-    console.log(state);
+    // console.log(state);
+    dispatch(authSignInUser(state));
     setState(initialState);
   };
 
@@ -154,7 +161,7 @@ export const LoginScreen = ({ navigation }) => {
                 </View>
                 <TouchableOpacity
                   activeOpacity={0.8}
-                  onPress={onSubmit}
+                  onPress={handleSubmit}
                   style={styles.loginBtn}
                 >
                   <Text style={styles.textLoginBtn}>Увійти</Text>
