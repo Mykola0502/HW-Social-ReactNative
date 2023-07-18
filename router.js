@@ -4,6 +4,7 @@ import { Image, TouchableOpacity, Button, Text } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useDispatch } from "react-redux";
 
 import { RegistrationScreen } from "./Screens/auth/RegistrationScreen";
 import { LoginScreen } from "./Screens/auth/LoginScreen";
@@ -12,10 +13,14 @@ import { CreatePostsScreen } from "./Screens/mainScreen/CreatePostsScreen";
 import { ProfileScreen } from "./Screens/mainScreen/ProfileScreen";
 import { LogoTitle } from "./components/LogoTitle";
 
+import { authSignOutUser } from "./redux/auth/authOperations";
+
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
 export const useRoute = (isAuth) => {
+  const dispatch = useDispatch();
+
   if (!isAuth) {
     return (
       <AuthStack.Navigator>
@@ -101,7 +106,7 @@ export const useRoute = (isAuth) => {
           headerRight: () => (
             <TouchableOpacity
               style={{ marginRight: 16 }}
-              onPress={() => alert("This is a logOut-button!")}
+              onPress={() => dispatch(authSignOutUser())}
             >
               <Image source={require("./assets/icons/logOut.png")} />
             </TouchableOpacity>
