@@ -21,6 +21,10 @@ const MainTab = createBottomTabNavigator();
 export const useRoute = (isAuth) => {
   const dispatch = useDispatch();
 
+  const signOut = () => {
+    dispatch(authSignOutUser());
+  };
+
   if (!isAuth) {
     return (
       <AuthStack.Navigator>
@@ -104,10 +108,7 @@ export const useRoute = (isAuth) => {
           //     return <LogoTitle {...props} />;
           //   },
           headerRight: () => (
-            <TouchableOpacity
-              style={{ marginRight: 16 }}
-              onPress={() => dispatch(authSignOutUser())}
-            >
+            <TouchableOpacity style={{ marginRight: 16 }} onPress={signOut}>
               <Image source={require("./assets/icons/logOut.png")} />
             </TouchableOpacity>
           ),
