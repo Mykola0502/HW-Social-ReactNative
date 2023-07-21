@@ -18,6 +18,10 @@ import {
   Image,
 } from "react-native";
 
+import { ref, uploadBytes } from "firebase/storage";
+
+import { storage } from "../../firebase/config";
+
 const initialState = {
   name: "",
   place: "",
@@ -63,8 +67,20 @@ export const CreatePostsScreen = ({ navigation }) => {
     keyboardHide();
     const newPost = { ...state, photo, location };
     console.log("newPost", newPost);
+    uploadPhotoToServer();
     navigation.navigate("DefaultScreen", newPost);
     setState(initialState);
+  };
+
+  const uploadPhotoToServer = async () => {
+    const response = await fetch(photo);
+    const file = await response.blob();
+
+    const uniquePostId = Date.now().toString();
+
+    const storageRef = ref(storage, `postImage/${uniquePostId}`);
+    const data = await uploadBytes(storageRef, file);
+    console.log("data", data);
   };
 
   useEffect(() => {
