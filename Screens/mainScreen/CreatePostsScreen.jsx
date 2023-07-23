@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Camera, CameraType } from "expo-camera";
 import * as Location from "expo-location";
 
@@ -18,9 +19,10 @@ import {
   Image,
 } from "react-native";
 
+import { collection, addDoc, doc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-import { storage } from "../../firebase/config";
+import { db, storage } from "../../firebase/config";
 
 const initialState = {
   name: "",
@@ -39,6 +41,8 @@ export const CreatePostsScreen = ({ navigation }) => {
   const [photo, setPhoto] = useState("");
   const [location, setLocation] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
+
+  const { userId, login } = useSelector((state) => state.auth);
 
   const isState = state.name !== "" && state.place !== "";
 
@@ -67,9 +71,27 @@ export const CreatePostsScreen = ({ navigation }) => {
     keyboardHide();
     const newPost = { ...state, photo, location };
     console.log("newPost", newPost);
-    uploadPhotoToServer();
+    uploadPostToServer();
     navigation.navigate("DefaultScreen", newPost);
     setState(initialState);
+  };
+
+  const uploadPostToServer = async () => {
+    const photoUrl = await uploadPhotoToServer();
+    try {
+      const postRef = await addDoc(collection(db, "posts"), {
+        photo: photoUrl,
+        name: state.name,
+        place: state.place,
+        location,
+        userId,
+        login,
+      });
+      console.log("Document written with ID: ", postRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      console.log("publishError", error);
+    }
   };
 
   const uploadPhotoToServer = async () => {
@@ -84,12 +106,18 @@ export const CreatePostsScreen = ({ navigation }) => {
       // console.log("data", data);
 
       const processedPhoto = await getDownloadURL(storageRef);
-      console.log("processedPhoto", processedPhoto);
+
+      return processedPhoto;
     } catch (error) {
       console.error("Error:", error);
-      console.log("updateError.message", error.message);
+      console.log("uploadError.message", error.message);
     }
   };
+
+  // useEffect(() => {
+  //   const ref1 = doc(db, "posts", "b6H1MsztYu057SQ2Ftt8");
+  //   console.log(ref1);
+  // }, []);
 
   useEffect(() => {
     (async () => {
