@@ -73,14 +73,18 @@ export const CreatePostsScreen = ({ navigation }) => {
   };
 
   const uploadPhotoToServer = async () => {
-    const response = await fetch(photo);
-    const file = await response.blob();
-
     const uniquePostId = Date.now().toString();
 
-    const storageRef = ref(storage, `postImage/${uniquePostId}`);
-    const data = await uploadBytes(storageRef, file);
-    console.log("data", data);
+    try {
+      const response = await fetch(photo);
+      const file = await response.blob();
+
+      const storageRef = ref(storage, `postImage/${uniquePostId}`);
+      const data = await uploadBytes(storageRef, file);
+      console.log("data", data);
+    } catch (error) {
+      console.error("Error uploading photo:", error);
+    }
   };
 
   useEffect(() => {
