@@ -18,7 +18,7 @@ import {
   Image,
 } from "react-native";
 
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { storage } from "../../firebase/config";
 
@@ -81,9 +81,13 @@ export const CreatePostsScreen = ({ navigation }) => {
 
       const storageRef = ref(storage, `postImage/${uniquePostId}`);
       const data = await uploadBytes(storageRef, file);
-      console.log("data", data);
+      // console.log("data", data);
+
+      const processedPhoto = await getDownloadURL(storageRef);
+      console.log("processedPhoto", processedPhoto);
     } catch (error) {
-      console.error("Error uploading photo:", error);
+      console.error("Error:", error);
+      console.log("updateError.message", error.message);
     }
   };
 
