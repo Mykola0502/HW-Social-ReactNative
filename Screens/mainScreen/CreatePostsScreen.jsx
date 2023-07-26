@@ -19,7 +19,7 @@ import {
   Image,
 } from "react-native";
 
-import { collection, addDoc, doc } from "firebase/firestore";
+import { collection, addDoc, doc, getDocs } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { db, storage } from "../../firebase/config";
@@ -72,7 +72,7 @@ export const CreatePostsScreen = ({ navigation }) => {
     const newPost = { ...state, photo, location };
     console.log("newPost", newPost);
     uploadPostToServer();
-    navigation.navigate("DefaultScreen", newPost);
+    navigation.navigate("DefaultScreen");
     setState(initialState);
   };
 
@@ -114,10 +114,20 @@ export const CreatePostsScreen = ({ navigation }) => {
     }
   };
 
-  // useEffect(() => {
-  //   const ref1 = doc(db, "posts", "b6H1MsztYu057SQ2Ftt8");
-  //   console.log(ref1);
-  // }, []);
+  // const getPostFromFirestore = async () => {
+  //   // const ref1 = doc(db, "posts", "b6H1MsztYu057SQ2Ftt8");
+  //   // console.log(ref1);
+  //   try {
+  //     const snapshot = await getDocs(collection(db, "posts"));
+  //     console.log("snapshot", snapshot);
+  //     // Перевіряємо у консолі отримані дані
+  //     // snapshot.forEach((doc) => console.log(`${doc.id} =>`, doc.data()));
+  //     // Повертаємо масив обʼєктів у довільній формі
+  //     // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     (async () => {
@@ -296,6 +306,24 @@ export const CreatePostsScreen = ({ navigation }) => {
               Опублікувати
             </Text>
           </TouchableOpacity>
+
+          {/* <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={getPostFromFirestore}
+            style={{
+              marginTop: 10,
+              backgroundColor: "#b0e798",
+            }}
+          >
+            <Text
+              style={{
+                paddingVertical: 10,
+                color: "#d47575",
+              }}
+            >
+              Get Post
+            </Text>
+          </TouchableOpacity> */}
         </View>
         <TouchableOpacity
           activeOpacity={0.7}

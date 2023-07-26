@@ -17,16 +17,38 @@ import {
   FlatList,
 } from "react-native";
 
+import { collection, query, getDocs, onSnapshot } from "firebase/firestore";
+
+import { db } from "../../firebase/config";
+
 export const DefaultScreen = ({ route, navigation }) => {
   console.log(Platform.OS);
 
   const [posts, setPosts] = useState([]);
 
+  const getAllPosts = async () => {
+    const q = query(collection(db, "posts"));
+    // console.log("q", q);
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const updatingPosts = [];
+      querySnapshot.forEach((doc) => {
+        // console.log("doc", doc);
+        updatingPosts.push({ ...doc.data(), id: doc.id });
+      });
+      setPosts(updatingPosts);
+    });
+
+    // const q = query(collection(db, "posts"));
+    // onSnapshot(q, (data) => {
+    //   // console.log("data", data.docs);
+    //   setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    // });
+  };
+
   useEffect(() => {
-    if (route.params) {
-      setPosts((prevState) => [...prevState, route.params]);
-    }
-  }, [route.params]);
+    console.log("useEffect Default");
+    getAllPosts();
+  }, []);
 
   console.log("posts", posts);
 
