@@ -25,13 +25,18 @@ export const MapScreen = ({ route }) => {
   //   }
   // }, [route.params]);
 
+  const { latitude, longitude } = route.params.location;
+  // console.log("route.params", route.params.location);
+  // console.log("latitude", latitude);
+  // console.log("longitude", longitude);
+
   return (
     <View style={styles.container}>
       <MapView
         style={{ flex: 1 }}
         region={{
-          latitude: route.params.latitude,
-          longitude: route.params.longitude,
+          latitude: latitude,
+          longitude: longitude,
           latitudeDelta: 0.1,
           longitudeDelta: 0.1,
         }}
@@ -41,8 +46,8 @@ export const MapScreen = ({ route }) => {
         <Marker
           title="foto"
           coordinate={{
-            latitude: route.params.latitude,
-            longitude: route.params.longitude,
+            latitude: latitude,
+            longitude: longitude,
           }}
         />
       </MapView>
