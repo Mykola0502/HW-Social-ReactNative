@@ -21,9 +21,9 @@ const MainTab = createBottomTabNavigator();
 export const useRoute = (isAuth) => {
   const dispatch = useDispatch();
 
-  const signOut = () => {
-    dispatch(authSignOutUser());
-  };
+  // const signOut = () => {
+  //   dispatch(authSignOutUser());
+  // };
 
   if (!isAuth) {
     return (
@@ -83,35 +83,36 @@ export const useRoute = (isAuth) => {
         name="Posts"
         component={PostsScreen}
         options={{
-          title: "Публікації",
-          //   headerStyle: {
-          //     height: 88,
-          //     shadowColor: "#000000",
-          //     shadowOffset: {
-          //       width: 0,
-          //       height: 0.5,
-          //     },
-          //     shadowOpacity: 0.3,
-          //     shadowRadius: 0,
-          //   },
-          //   headerTintColor: "#212121",
-          //   headerTitleAlign: "center",
-          //   headerTitleStyle: {
-          //     // paddingVertical: 11,
-          //     color: "#212121",
-          //     fontFamily: "Roboto-Medium",
-          //     fontSize: 17,
-          //     lineHeight: 22,
-          //     // textAlign: "center",
-          //   },
-          //   headerTitle: (props) => {
-          //     return <LogoTitle {...props} />;
-          //   },
-          headerRight: () => (
-            <TouchableOpacity style={{ marginRight: 16 }} onPress={signOut}>
-              <Image source={require("./assets/icons/logOut.png")} />
-            </TouchableOpacity>
-          ),
+          headerShown: false,
+          // title: "Публікації",
+          // //   headerStyle: {
+          // //     height: 88,
+          // //     shadowColor: "#000000",
+          // //     shadowOffset: {
+          // //       width: 0,
+          // //       height: 0.5,
+          // //     },
+          // //     shadowOpacity: 0.3,
+          // //     shadowRadius: 0,
+          // //   },
+          // //   headerTintColor: "#212121",
+          // //   headerTitleAlign: "center",
+          // //   headerTitleStyle: {
+          // //     // paddingVertical: 11,
+          // //     color: "#212121",
+          // //     fontFamily: "Roboto-Medium",
+          // //     fontSize: 17,
+          // //     lineHeight: 22,
+          // //     // textAlign: "center",
+          // //   },
+          // //   headerTitle: (props) => {
+          // //     return <LogoTitle {...props} />;
+          // //   },
+          // headerRight: () => (
+          //   <TouchableOpacity style={{ marginRight: 16 }} onPress={signOut}>
+          //     <Image source={require("./assets/icons/logOut.png")} />
+          //   </TouchableOpacity>
+          // ),
           tabBarIcon: ({ focused, color, size }) => (
             <Image
               source={require("./assets/icons/posts.png")}
