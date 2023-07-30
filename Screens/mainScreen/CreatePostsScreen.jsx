@@ -19,7 +19,7 @@ import {
   Image,
 } from "react-native";
 
-import { collection, addDoc, doc, getDocs } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, getDocs } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { db, storage } from "../../firebase/config";
@@ -115,18 +115,20 @@ export const CreatePostsScreen = ({ navigation }) => {
   };
 
   // const getPostFromFirestore = async () => {
-  //   // const ref1 = doc(db, "posts", "b6H1MsztYu057SQ2Ftt8");
-  //   // console.log(ref1);
-  //   try {
-  //     const snapshot = await getDocs(collection(db, "posts"));
-  //     console.log("snapshot", snapshot);
-  //     // Перевіряємо у консолі отримані дані
-  //     // snapshot.forEach((doc) => console.log(`${doc.id} =>`, doc.data()));
-  //     // Повертаємо масив обʼєктів у довільній формі
-  //     // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
+  //   const ref1 = doc(db, "posts", "lRSFQPOEQjXKQZXSPsb4");
+  //   console.log("ref1", ref1);
+  //   const docSnap = await getDoc(ref1);
+  //   console.log("docSnap", docSnap.data());
+  //   // try {
+  //   //   const snapshot = await getDocs(collection(db, "posts"));
+  //   //   console.log("snapshot", snapshot);
+  //   //   // Перевіряємо у консолі отримані дані
+  //   //   // snapshot.forEach((doc) => console.log(`${doc.id} =>`, doc.data()));
+  //   //   // Повертаємо масив обʼєктів у довільній формі
+  //   //   // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
+  //   // } catch (error) {
+  //   //   console.log(error);
+  //   // }
   // };
 
   useEffect(() => {

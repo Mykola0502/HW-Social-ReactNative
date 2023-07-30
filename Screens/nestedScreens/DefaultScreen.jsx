@@ -32,7 +32,9 @@ export const DefaultScreen = ({ route, navigation }) => {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const updatingPosts = [];
       querySnapshot.forEach((doc) => {
-        // console.log("doc", doc);
+        console.log("doc", doc);
+        console.log("doc.id", doc.id);
+
         updatingPosts.push({ ...doc.data(), id: doc.id });
       });
       setPosts(updatingPosts);
