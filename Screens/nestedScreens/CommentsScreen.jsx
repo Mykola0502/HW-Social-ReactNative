@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import {
   StyleSheet,
   Text,
@@ -16,14 +15,57 @@ import {
   Button,
   Image,
 } from "react-native";
+import { useSelector } from "react-redux";
+import { collection, doc, addDoc, updateDoc } from "firebase/firestore";
 
-export const CommentsScreen = () => {
+import { db } from "../../firebase/config";
+
+export const CommentsScreen = ({ route }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   // const [isDisabled, setIsDisabled] = useState(false);
   const [comment, setComment] = useState("");
 
-  const addComment = () => {
+  const { postId } = route.params;
+
+  const { login } = useSelector((state) => state.auth);
+
+  const addComment = async () => {
     console.log("add comment");
+
+    // const ref = doc(db, "posts", postId);
+    // console.log("ref", ref);
+
+    // const docSnap = await getDoc(ref);
+    // console.log("docSnap", docSnap.data());
+
+    try {
+      await addDoc(collection(db, "posts", postId, "comments"), {
+        comment,
+        login,
+        date: new Date(),
+      });
+
+      // Варіант 2
+      // await addDoc(collection(doc(db, "posts", postId), "comments"), {
+      //   comment,
+      //   login,
+      //   date: new Date(),
+      // });
+
+      // Варіант без створення підколекції (перезаписує попередній коментар)
+      // const ref = doc(db, "posts", postId);
+      // console.log("ref", ref);
+      // await updateDoc(ref, {
+      //   comment,
+      //   login,
+      // });
+
+      console.log("document updated");
+      setComment("");
+      keyboardHide();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const keyboardHide = () => {

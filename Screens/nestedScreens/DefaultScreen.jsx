@@ -32,8 +32,8 @@ export const DefaultScreen = ({ route, navigation }) => {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const updatingPosts = [];
       querySnapshot.forEach((doc) => {
-        console.log("doc", doc);
-        console.log("doc.id", doc.id);
+        // console.log("doc", doc);
+        // console.log("doc.id", doc.id);
 
         updatingPosts.push({ ...doc.data(), id: doc.id });
       });
@@ -77,7 +77,9 @@ export const DefaultScreen = ({ route, navigation }) => {
             <Text style={styles.postName}>{item.name}</Text>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate("Comments")}
+                onPress={() =>
+                  navigation.navigate("Comments", { postId: item.id })
+                }
                 style={{
                   marginRight: "auto",
                   flexDirection: "row",
