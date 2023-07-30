@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   TextInput,
   ImageBackground,
   TouchableOpacity,
@@ -18,7 +19,7 @@ import {
 
 export const CommentsScreen = () => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
+  // const [isDisabled, setIsDisabled] = useState(false);
   const [comment, setComment] = useState("");
 
   const addComment = () => {
@@ -62,7 +63,7 @@ export const CommentsScreen = () => {
       >
         <Image source={{}} style={styles.image} />
 
-        <View style={styles.comments}>
+        <ScrollView style={styles.comments}>
           <View style={styles.commentContainer}>
             <Image style={styles.avatar} source={{}} />
             <View style={styles.commentTextContainer}>
@@ -83,7 +84,7 @@ export const CommentsScreen = () => {
               <Text style={styles.metaInfo}>09 червня, 2020 | 09:14</Text>
             </View>
           </View> */}
-        </View>
+        </ScrollView>
 
         <View style={styles.inputCommentWrapper}>
           <TextInput
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     paddingTop: 32,
-    paddingBottom: 16,
+    // paddingBottom: 16,
     paddingHorizontal: 16,
     // justifyContent: "flex-end",
     // paddingBottom: 34,
@@ -152,11 +153,13 @@ const styles = StyleSheet.create({
   },
   comments: {
     marginTop: 32,
-    marginBottom: 31,
+    marginBottom: 97,
+    height: "100%",
   },
   commentContainer: {
     width: "100%",
     flexDirection: "row",
+    marginBottom: 24,
     // alignItems: "flex-start",
   },
   avatar: {
@@ -198,12 +201,12 @@ const styles = StyleSheet.create({
   input: {
     padding: 16,
     paddingBottom: 15,
+    paddingRight: 50,
     backgroundColor: "#F6F6F6",
     color: "#212121",
     fontFamily: "Roboto-Medium",
     fontSize: 16,
     lineHeight: 19,
-    // fontWeight: 400,
     borderWidth: 1,
     borderColor: "#E8E8E8",
     borderRadius: 50,
@@ -215,11 +218,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: "100%",
   },
-  // commentBtnText: {
-  //   color: "#1B4371",
-  //   fontFamily: "Roboto-Regular",
-  //   fontSize: 16,
-  //   lineHeight: 19,
-  //   // fontWeight: 400,
-  // },
 });
