@@ -86,6 +86,7 @@ export const CreatePostsScreen = ({ navigation }) => {
         location,
         userId,
         login,
+        createdDate: Date.now(),
       });
       console.log("Document written with ID: ", postRef.id);
     } catch (e) {

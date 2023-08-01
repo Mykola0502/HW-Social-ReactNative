@@ -14,9 +14,23 @@ import {
   Dimensions,
   Button,
   Image,
+  SafeAreaView,
+  FlatList,
 } from "react-native";
 import { useSelector } from "react-redux";
-import { collection, doc, addDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  onSnapshot,
+  query,
+  orderBy,
+} from "firebase/firestore";
+
+import { format } from "date-fns";
+import { uk } from "date-fns/locale";
 
 import { db } from "../../firebase/config";
 
@@ -24,35 +38,38 @@ export const CommentsScreen = ({ route }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   // const [isDisabled, setIsDisabled] = useState(false);
   const [comment, setComment] = useState("");
+  const [allComments, setAllComments] = useState([]);
 
   const { postId } = route.params;
 
   const { login } = useSelector((state) => state.auth);
 
   const addComment = async () => {
-    console.log("add comment");
-
-    // const ref = doc(db, "posts", postId);
-    // console.log("ref", ref);
-
-    // const docSnap = await getDoc(ref);
-    // console.log("docSnap", docSnap.data());
+    // console.log("add comment");
 
     try {
+      /**
+       *      Варіант 1
+       */
       await addDoc(collection(db, "posts", postId, "comments"), {
         comment,
         login,
-        date: new Date(),
+        createdDate: Date.now(),
       });
 
-      // Варіант 2
+      /**
+       *      Варіант 2
+       */
       // await addDoc(collection(doc(db, "posts", postId), "comments"), {
       //   comment,
       //   login,
-      //   date: new Date(),
+      //   createdDate: Date.now(),
       // });
 
-      // Варіант без створення підколекції (перезаписує попередній коментар)
+      /**
+       *      Варіант 3
+       *    без створення підколекції (перезаписує попередній коментар)
+       */
       // const ref = doc(db, "posts", postId);
       // console.log("ref", ref);
       // await updateDoc(ref, {
@@ -60,11 +77,60 @@ export const CommentsScreen = ({ route }) => {
       //   login,
       // });
 
-      console.log("document updated");
+      // console.log("document updated");
       setComment("");
       keyboardHide();
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const getAllComments = async () => {
+    try {
+      /**
+       *      Варіант 1  (отримати всі документи колекції)
+       */
+      // const { query } = await getDocs(
+      //   collection(db, "posts", postId, "comments")
+      // );
+      // console.log("query", query);
+      // onSnapshot(query, (querySnapshot) => {
+      //   console.log("1");
+      //   const getComments = [];
+      //   querySnapshot.forEach((doc) => {
+      //     console.log("doc", doc);
+      //     // console.log("doc.id", doc.id);
+      //     getComments.push({ ...doc.data(), id: doc.id });
+      //   });
+      //   console.log("getComments", getComments);
+      //   setAllComments(getComments);
+      // });
+
+      /**
+       *      Варіант 2  (пошук по умові)
+       */
+      const q = query(
+        collection(db, "posts", postId, "comments"),
+        orderBy(
+          "createdDate"
+          // , "desc"
+        )
+      );
+      console.log("q", q);
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const getComments = [];
+        querySnapshot.forEach((doc) => {
+          // console.log("doc", doc);
+          // console.log("doc.id", doc.id);
+
+          getComments.push({ ...doc.data(), id: doc.id });
+        });
+
+        console.log("getComments", getComments);
+        setAllComments(getComments);
+      });
+    } catch (error) {
+      console.log("Помилка при отриманні коментарів:", error);
     }
   };
 
@@ -76,6 +142,10 @@ export const CommentsScreen = ({ route }) => {
   // useEffect(() => {
   //   isState ? setIsDisabled(false) : setIsDisabled(true);
   // }, [isState]);
+
+  useEffect(() => {
+    getAllComments();
+  }, []);
 
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener(
@@ -105,8 +175,29 @@ export const CommentsScreen = ({ route }) => {
       >
         <Image source={{}} style={styles.image} />
 
-        <ScrollView style={styles.comments}>
-          <View style={styles.commentContainer}>
+        <SafeAreaView style={styles.container}>
+          <FlatList
+            style={styles.comments}
+            data={allComments}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={styles.commentContainer}>
+                <Image style={styles.avatar} source={{}} />
+                <View style={styles.commentTextContainer}>
+                  <Text style={styles.commentText}>{item.comment}</Text>
+                  <Text style={styles.metaInfo}>
+                    {format(item.createdDate, "dd MMMM, yyyy | HH:mm", {
+                      locale: uk,
+                    })}
+                  </Text>
+                </View>
+              </View>
+            )}
+          />
+        </SafeAreaView>
+
+        {/* <View style={styles.comments}> */}
+        {/* <View style={styles.commentContainer}>
             <Image style={styles.avatar} source={{}} />
             <View style={styles.commentTextContainer}>
               <Text style={styles.commentText}>
@@ -115,8 +206,8 @@ export const CommentsScreen = ({ route }) => {
               </Text>
               <Text style={styles.metaInfo}>09 червня, 2020 | 08:40</Text>
             </View>
-          </View>
-          {/* <View style={styles.commentContainer}>
+          </View> */}
+        {/* <View style={styles.commentContainer}>
             <Image style={styles.avatar} source={{}} />
             <View style={styles.commentTextContainer}>
               <Text style={styles.commentText}>
@@ -126,7 +217,7 @@ export const CommentsScreen = ({ route }) => {
               <Text style={styles.metaInfo}>09 червня, 2020 | 09:14</Text>
             </View>
           </View> */}
-        </ScrollView>
+        {/* </View> */}
 
         <View style={styles.inputCommentWrapper}>
           <TextInput

@@ -17,7 +17,13 @@ import {
   FlatList,
 } from "react-native";
 
-import { collection, query, getDocs, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  getDocs,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore";
 
 import { db } from "../../firebase/config";
 
@@ -27,7 +33,26 @@ export const DefaultScreen = ({ route, navigation }) => {
   const [posts, setPosts] = useState([]);
 
   const getAllPosts = async () => {
-    const q = query(collection(db, "posts"));
+    /**
+     *      Варіант 1  (отримати всі документи колекції)
+     */
+    //   const { query } = await getDocs(collection(db, "posts"));
+    //   // console.log("query", query);
+    //   onSnapshot(query, (querySnapshot) => {
+    //     const updatingPosts = [];
+    //     querySnapshot.forEach((doc) => {
+    //       // console.log("doc", doc);
+    //       // console.log("doc.id", doc.id);
+    //       updatingPosts.push({ ...doc.data(), id: doc.id });
+    //     });
+    //     // console.log("updatingPosts", updatingPosts);
+    //     setPosts(updatingPosts);
+    //   });
+
+    /**
+     *      Варіант 2  (пошук по умові)
+     */
+    const q = query(collection(db, "posts"), orderBy("createdDate", "desc"));
     // console.log("q", q);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const updatingPosts = [];
@@ -40,7 +65,10 @@ export const DefaultScreen = ({ route, navigation }) => {
       setPosts(updatingPosts);
     });
 
-    // const q = query(collection(db, "posts"));
+    /**
+     *      Варіант 3  (пошук по умові)
+     */
+    // const q = query(collection(db, "posts"), orderBy("createdDate", "desc"));
     // onSnapshot(q, (data) => {
     //   // console.log("data", data.docs);
     //   setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
