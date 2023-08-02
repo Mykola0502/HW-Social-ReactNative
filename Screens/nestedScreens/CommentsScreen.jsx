@@ -40,7 +40,7 @@ export const CommentsScreen = ({ route }) => {
   const [comment, setComment] = useState("");
   const [allComments, setAllComments] = useState([]);
 
-  const { postId, authorPostId } = route.params;
+  const { postId, authorPostId, photoUri } = route.params;
   console.log("route.params", route.params);
 
   const { login, userId, email } = useSelector((state) => state.auth);
@@ -178,7 +178,7 @@ export const CommentsScreen = ({ route }) => {
         // behavior={Platform.OS === "ios" ? "padding" : "height"}
         behavior={Platform.OS === "ios" && "padding"}
       >
-        <Image source={{}} style={styles.image} />
+        <Image source={{ uri: photoUri }} style={styles.image} />
 
         <SafeAreaView
           style={{

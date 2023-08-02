@@ -151,6 +151,7 @@ export const DefaultScreen = ({ route, navigation }) => {
                   navigation.navigate("Comments", {
                     postId: item.id,
                     authorPostId: item.userId,
+                    photoUri: item.photo,
                   })
                 }
                 style={{
