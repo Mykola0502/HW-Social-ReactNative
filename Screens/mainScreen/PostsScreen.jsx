@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import { TouchableOpacity, Image } from "react-native";
 
@@ -8,11 +9,15 @@ import { DefaultScreen } from "../nestedScreens/DefaultScreen";
 import { MapScreen } from "../nestedScreens/MapScreen";
 import { CommentsScreen } from "../nestedScreens/CommentsScreen";
 
+import { authSignOutUser } from "../../redux/auth/authOperations";
+
 import { LogoTitle } from "../../components/LogoTitle";
 
 const NestedScreen = createStackNavigator();
 
 export const PostsScreen = () => {
+  const dispatch = useDispatch();
+
   const signOut = () => {
     dispatch(authSignOutUser());
   };

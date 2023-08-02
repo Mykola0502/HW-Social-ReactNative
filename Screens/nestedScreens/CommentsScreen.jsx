@@ -40,12 +40,15 @@ export const CommentsScreen = ({ route }) => {
   const [comment, setComment] = useState("");
   const [allComments, setAllComments] = useState([]);
 
-  const { postId } = route.params;
+  const { postId, authorPostId } = route.params;
+  console.log("route.params", route.params);
 
-  const { login } = useSelector((state) => state.auth);
+  const { login, userId, email } = useSelector((state) => state.auth);
 
   const addComment = async () => {
     // console.log("add comment");
+
+    const nickName = login ?? email.split("@")[0];
 
     try {
       /**
@@ -53,7 +56,8 @@ export const CommentsScreen = ({ route }) => {
        */
       await addDoc(collection(db, "posts", postId, "comments"), {
         comment,
-        login,
+        login: nickName,
+        authorCommentId: userId,
         createdDate: Date.now(),
       });
 
@@ -63,6 +67,7 @@ export const CommentsScreen = ({ route }) => {
       // await addDoc(collection(doc(db, "posts", postId), "comments"), {
       //   comment,
       //   login,
+      //   authorCommentId: userId,
       //   createdDate: Date.now(),
       // });
 
@@ -169,30 +174,55 @@ export const CommentsScreen = ({ route }) => {
       <KeyboardAvoidingView
         // style={{ flex: 1, justifyContent: "flex-end" }}
         // style={{ flex: 1 }}
-        style={styles.container}
+        style={{ ...styles.container, marginTop: isShowKeyboard ? -200 : 0 }}
         // behavior={Platform.OS === "ios" ? "padding" : "height"}
         behavior={Platform.OS === "ios" && "padding"}
       >
         <Image source={{}} style={styles.image} />
 
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView
+          style={{
+            flex: 1,
+            // marginTop: StatusBar.currentHeight || 0
+          }}
+          // style={styles.container}
+        >
           <FlatList
             style={styles.comments}
             data={allComments}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View style={styles.commentContainer}>
-                <Image style={styles.avatar} source={{}} />
-                <View style={styles.commentTextContainer}>
-                  <Text style={styles.commentText}>{item.comment}</Text>
-                  <Text style={styles.metaInfo}>
-                    {format(item.createdDate, "dd MMMM, yyyy | HH:mm", {
-                      locale: uk,
-                    })}
-                  </Text>
+            renderItem={({ item }) => {
+              // console.log(
+              //   "authorPostId === item.authorCommentId",
+              //   authorPostId === item.authorCommentId
+              // );
+              return (
+                <View
+                  style={{
+                    ...styles.commentContainer,
+                    flexDirection:
+                      userId === item.authorCommentId ? "row-reverse" : "row",
+                  }}
+                >
+                  <Image
+                    style={{
+                      ...styles.avatar,
+                      marginLeft: userId === item.authorCommentId ? 16 : 0,
+                      marginRight: userId === item.authorCommentId ? 0 : 16,
+                    }}
+                    source={{}}
+                  />
+                  <View style={styles.commentTextContainer}>
+                    <Text style={styles.commentText}>{item.comment}</Text>
+                    <Text style={styles.metaInfo}>
+                      {format(item.createdDate, "dd MMMM, yyyy | HH:mm", {
+                        locale: uk,
+                      })}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            )}
+              );
+            }}
           />
         </SafeAreaView>
 
@@ -296,7 +326,7 @@ const styles = StyleSheet.create({
     // alignItems: "flex-start",
   },
   avatar: {
-    marginRight: 16,
+    // marginRight: 16,
     width: 28,
     height: 28,
     borderRadius: 28,
