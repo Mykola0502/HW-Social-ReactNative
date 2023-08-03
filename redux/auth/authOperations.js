@@ -24,7 +24,7 @@ export const authSignUpUser =
             displayName: login,
           });
 
-          const { uid, displayName } = await auth.currentUser;
+          const { uid, displayName, email } = await auth.currentUser;
 
           // console.log("displayName", displayName);
 
@@ -34,6 +34,7 @@ export const authSignUpUser =
             updateUserProfile({
               userId: uid,
               login: displayName,
+              email,
             })
           );
         } catch (error) {
