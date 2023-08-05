@@ -20,7 +20,7 @@ export const Main = () => {
 
   //   console.log("state", state);
 
-  useEffect((aut) => {
+  useEffect((auth) => {
     dispatch(authStateChangeUser());
   }, []);
 
