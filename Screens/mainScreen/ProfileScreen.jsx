@@ -36,7 +36,7 @@ export const ProfileScreen = ({ route, navigation }) => {
   const [userPosts, setUserPosts] = useState([]);
 
   const dispatch = useDispatch();
-  const { userId } = useSelector((state) => state.auth);
+  const { userId, login } = useSelector((state) => state.auth);
 
   const signOut = () => {
     dispatch(authSignOutUser());
@@ -52,8 +52,10 @@ export const ProfileScreen = ({ route, navigation }) => {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const allUserPosts = [];
       querySnapshot.forEach((doc) => {
+        // console.log("postValue", doc.value());
         allUserPosts.push({ ...doc.data(), id: doc.id });
       });
+      // console.log("allUserPosts", allUserPosts);
       setUserPosts(allUserPosts);
     });
 
@@ -83,7 +85,7 @@ export const ProfileScreen = ({ route, navigation }) => {
             source={require("../../assets/images/userPhoto.png")}
             style={styles.userPhoto}
           />
-          <Text style={styles.userName}>Natali Romanova</Text>
+          <Text style={styles.userName}>{login}</Text>
           <FlatList
             style={styles.postsList}
             data={userPosts}
@@ -108,10 +110,12 @@ export const ProfileScreen = ({ route, navigation }) => {
                     }}
                   >
                     <Image
-                      source={require("../../assets/icons/comments.png")}
+                      source={require("../../assets/icons/commentsProfile.png")}
                       style={{ width: 24, height: 24 }}
                     />
-                    <Text style={styles.commentsCount}>0</Text>
+                    <Text style={styles.commentsCount}>
+                      {item.commentsCount}
+                    </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() =>
@@ -202,7 +206,7 @@ const styles = StyleSheet.create({
   },
   commentsCount: {
     marginLeft: 6,
-    color: "#BDBDBD",
+    color: "#212121",
     fontSize: 16,
     lineHeight: 19,
     fontFamily: "Roboto-Regular",

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import {
   StyleSheet,
@@ -31,6 +32,8 @@ export const DefaultScreen = ({ route, navigation }) => {
   console.log(Platform.OS);
 
   const [posts, setPosts] = useState([]);
+
+  const { login, userId, email } = useSelector((state) => state.auth);
 
   const getAllPosts = async () => {
     /**
@@ -92,8 +95,8 @@ export const DefaultScreen = ({ route, navigation }) => {
         <View
         //   style={styles.description}
         >
-          <Text style={styles.userName}>Natali Romanova</Text>
-          <Text style={styles.userEmail}>email@example.com</Text>
+          <Text style={styles.userName}>{login ?? email.split("@")[0]}</Text>
+          <Text style={styles.userEmail}>{email}</Text>
         </View>
       </View>
       <FlatList
@@ -164,7 +167,7 @@ export const DefaultScreen = ({ route, navigation }) => {
                   source={require("../../assets/icons/comments.png")}
                   style={{ width: 24, height: 24 }}
                 />
-                <Text style={styles.commentsCount}>0</Text>
+                <Text style={styles.commentsCount}> {item.commentsCount}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>

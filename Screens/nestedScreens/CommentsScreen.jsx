@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -17,7 +18,6 @@ import {
   SafeAreaView,
   FlatList,
 } from "react-native";
-import { useSelector } from "react-redux";
 import {
   collection,
   doc,
@@ -39,15 +39,30 @@ export const CommentsScreen = ({ route }) => {
   // const [isDisabled, setIsDisabled] = useState(false);
   const [comment, setComment] = useState("");
   const [allComments, setAllComments] = useState([]);
+  // const [commentsCount, setCommentsCount] = useState(0);
 
   const { postId, authorPostId, photoUri } = route.params;
-  console.log("route.params", route.params);
+  // console.log("route.params", route.params);
 
   const { login, userId, email } = useSelector((state) => state.auth);
 
-  const addComment = async () => {
-    // console.log("add comment");
+  let commentsCount = allComments.length;
 
+  const updatePostCommentsCounter = async (collectionName, docId) => {
+    console.log("count", commentsCount);
+    try {
+      const ref = doc(db, collectionName, docId);
+
+      await updateDoc(ref, {
+        commentsCount: commentsCount,
+      });
+      console.log("counter updated");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addComment = async () => {
     const nickName = login ?? email.split("@")[0];
 
     try {
@@ -85,6 +100,10 @@ export const CommentsScreen = ({ route }) => {
       // console.log("document updated");
       setComment("");
       keyboardHide();
+
+      commentsCount += 1;
+
+      await updatePostCommentsCounter("posts", postId);
     } catch (error) {
       console.log(error);
     }
@@ -121,7 +140,7 @@ export const CommentsScreen = ({ route }) => {
           // , "desc"
         )
       );
-      console.log("q", q);
+      // console.log("q", q);
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const getComments = [];
         querySnapshot.forEach((doc) => {
@@ -149,6 +168,7 @@ export const CommentsScreen = ({ route }) => {
   // }, [isState]);
 
   useEffect(() => {
+    console.log("useEffect CommentsScreen");
     getAllComments();
   }, []);
 

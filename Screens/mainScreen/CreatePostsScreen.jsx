@@ -41,6 +41,7 @@ export const CreatePostsScreen = ({ navigation }) => {
   const [photo, setPhoto] = useState("");
   const [location, setLocation] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
+  // const [commentsCount, setCommentsCount] = useState(null);
 
   const { userId, login } = useSelector((state) => state.auth);
 
@@ -83,6 +84,7 @@ export const CreatePostsScreen = ({ navigation }) => {
         photo: photoUrl,
         name: state.name,
         place: state.place,
+        commentsCount: 0,
         location,
         userId,
         login,
@@ -113,6 +115,11 @@ export const CreatePostsScreen = ({ navigation }) => {
       console.error("Error:", error);
       console.log("uploadError.message", error.message);
     }
+  };
+
+  const deleteData = () => {
+    setState(initialState);
+    setPhoto("");
   };
 
   // const getPostFromFirestore = async () => {
@@ -330,7 +337,7 @@ export const CreatePostsScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => {}}
+          onPress={deleteData}
           style={{
             ...styles.trashBtn,
             marginTop: isShowKeyboard ? 32 : "auto",
