@@ -21,8 +21,10 @@ import {
 import {
   collection,
   query,
+  doc,
   getDocs,
   onSnapshot,
+  updateDoc,
   orderBy,
 } from "firebase/firestore";
 
@@ -76,6 +78,18 @@ export const DefaultScreen = ({ route, navigation }) => {
     //   // console.log("data", data.docs);
     //   setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     // });
+  };
+
+  const updateLikesCounter = async (collectionName, docId, initialAmount) => {
+    try {
+      const ref = doc(db, collectionName, docId);
+
+      await updateDoc(ref, {
+        likesCount: initialAmount + 1,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -158,7 +172,7 @@ export const DefaultScreen = ({ route, navigation }) => {
                   })
                 }
                 style={{
-                  marginRight: "auto",
+                  marginRight: 24,
                   flexDirection: "row",
                   alignItems: "center",
                 }}
@@ -167,7 +181,26 @@ export const DefaultScreen = ({ route, navigation }) => {
                   source={require("../../assets/icons/comments.png")}
                   style={{ width: 24, height: 24 }}
                 />
-                <Text style={styles.commentsCount}> {item.commentsCount}</Text>
+                <Text style={styles.commentsCount}>
+                  {" "}
+                  {item.commentsCount || 0}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  updateLikesCounter("posts", item.id, item.likesCount || 0);
+                }}
+                style={{
+                  marginRight: "auto",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={require("../../assets/icons/like.png")}
+                  style={{ width: 24, height: 24 }}
+                />
+                <Text style={styles.commentsCount}>{item.likesCount || 0}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>

@@ -114,11 +114,11 @@ export const ProfileScreen = ({ route, navigation }) => {
                       style={{ width: 24, height: 24 }}
                     />
                     <Text style={styles.commentsCount}>
-                      {item.commentsCount}
+                      {item.commentsCount || 0}
                     </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {}}
+                  <View
+                    // onPress={() => {}}
                     style={{
                       marginRight: "auto",
                       flexDirection: "row",
@@ -129,8 +129,10 @@ export const ProfileScreen = ({ route, navigation }) => {
                       source={require("../../assets/icons/like.png")}
                       style={{ width: 24, height: 24 }}
                     />
-                    <Text style={styles.commentsCount}>153</Text>
-                  </TouchableOpacity>
+                    <Text style={styles.commentsCount}>
+                      {item.likesCount || 0}
+                    </Text>
+                  </View>
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("Map", { location: item.location })

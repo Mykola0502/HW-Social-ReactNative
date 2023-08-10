@@ -85,6 +85,7 @@ export const CreatePostsScreen = ({ navigation }) => {
         name: state.name,
         place: state.place,
         commentsCount: 0,
+        likesCount: 0,
         location,
         userId,
         login,
