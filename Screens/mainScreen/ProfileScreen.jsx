@@ -104,7 +104,7 @@ export const ProfileScreen = ({ route, navigation }) => {
                       })
                     }
                     style={{
-                      marginRight: "auto",
+                      marginRight: 24,
                       flexDirection: "row",
                       alignItems: "center",
                     }}
@@ -116,6 +116,20 @@ export const ProfileScreen = ({ route, navigation }) => {
                     <Text style={styles.commentsCount}>
                       {item.commentsCount}
                     </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {}}
+                    style={{
+                      marginRight: "auto",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      source={require("../../assets/icons/like.png")}
+                      style={{ width: 24, height: 24 }}
+                    />
+                    <Text style={styles.commentsCount}>153</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() =>
