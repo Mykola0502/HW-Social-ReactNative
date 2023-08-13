@@ -76,7 +76,6 @@ export const authSignOutUser = () => async (dispatch, getState) => {
 
 export const authStateChangeUser = () => async (dispatch, getState) => {
   await onAuthStateChanged(auth, (user) => {
-    // setUser(user);
     if (user) {
       dispatch(
         updateUserProfile({

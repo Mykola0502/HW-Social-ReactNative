@@ -73,17 +73,5 @@ export const PostsScreen = () => {
         options={{ title: "Карта" }}
       />
     </NestedScreen.Navigator>
-    // <AuthStack.Navigator>
-    //   <AuthStack.Screen
-    //     name="Login"
-    //     component={LoginScreen}
-    //     options={{ headerShown: false }}
-    //   />
-    //   <AuthStack.Screen
-    //     name="Register"
-    //     component={RegistrationScreen}
-    //     options={{ headerShown: false }}
-    //   />
-    // </AuthStack.Navigator>
   );
 };

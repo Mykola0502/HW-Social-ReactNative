@@ -10,8 +10,6 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Dimensions,
-  Button,
   Image,
 } from "react-native";
 
@@ -77,7 +75,7 @@ export const LoginScreen = ({ navigation }) => {
                 <Text style={styles.formTitle}>Увійти</Text>
                 <TouchableOpacity
                   activeOpacity={0.7}
-                  //   onPress={() => setisHiddenPassword(!isHiddenPassword)}
+                  // onPress={() => {}}
                   style={styles.closeImgBtn}
                 >
                   <Image
@@ -224,7 +222,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     fontSize: 30,
     lineHeight: 35,
-    // fontWeight: 500,
     textAlign: "center",
   },
   input: {
@@ -235,16 +232,12 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    // fontWeight: 400,
     borderWidth: 1,
     borderColor: "#E8E8E8",
     borderRadius: 8,
   },
   inputPasswordWrapper: {
     position: "relative",
-    // flexDirection: "row",
-    // width: "100%",
-    // justifyContent: "flex-end",
   },
   passwordBtn: {
     position: "absolute",
@@ -258,7 +251,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    // fontWeight: 400,
   },
   loginBtn: {
     marginTop: 43,
@@ -281,7 +273,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    // fontWeight: 400,
     textAlign: "center",
   },
   containerInfo: {
@@ -293,8 +284,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    // fontWeight: 400,
-    // textAlign: "center",
   },
   linkLogin: {
     color: "#0000ff",

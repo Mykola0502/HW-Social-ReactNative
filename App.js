@@ -1,5 +1,4 @@
 import React from "react";
-// import { StyleSheet, Text, View, ImageBackground } from "react-native";
 import { useFonts } from "expo-font";
 import "react-native-gesture-handler";
 // import { StatusBar } from "expo-status-bar";

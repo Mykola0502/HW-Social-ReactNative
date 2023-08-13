@@ -4,16 +4,12 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
   TextInput,
-  ImageBackground,
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Dimensions,
-  Button,
   Image,
   SafeAreaView,
   FlatList,
@@ -36,10 +32,8 @@ import { db } from "../../firebase/config";
 
 export const CommentsScreen = ({ route }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
-  // const [isDisabled, setIsDisabled] = useState(false);
   const [comment, setComment] = useState("");
   const [allComments, setAllComments] = useState([]);
-  // const [commentsCount, setCommentsCount] = useState(0);
 
   const { postId, authorPostId, photoUri } = route.params;
 
@@ -149,10 +143,6 @@ export const CommentsScreen = ({ route }) => {
     Keyboard.dismiss();
   };
 
-  // useEffect(() => {
-  //   isState ? setIsDisabled(false) : setIsDisabled(true);
-  // }, [isState]);
-
   useEffect(() => {
     getAllComments();
   }, []);
@@ -170,15 +160,9 @@ export const CommentsScreen = ({ route }) => {
   }, []);
 
   return (
-    // <View style={styles.container}>
-    //   <Text>CommentsScreen</Text>
-    // </View>
-
     <TouchableWithoutFeedback onPress={keyboardHide}>
       {/* <View style={styles.container}> */}
       <KeyboardAvoidingView
-        // style={{ flex: 1, justifyContent: "flex-end" }}
-        // style={{ flex: 1 }}
         style={{ ...styles.container, marginTop: isShowKeyboard ? -200 : 0 }}
         // behavior={Platform.OS === "ios" ? "padding" : "height"}
         behavior={Platform.OS === "ios" && "padding"}
@@ -190,7 +174,6 @@ export const CommentsScreen = ({ route }) => {
             flex: 1,
             // marginTop: StatusBar.currentHeight || 0
           }}
-          // style={styles.container}
         >
           <FlatList
             style={styles.comments}
@@ -264,9 +247,6 @@ export const CommentsScreen = ({ route }) => {
               source={require("../../assets/icons/sendComment.png")}
               style={{ width: 34, height: 34 }}
             />
-            {/* <Text style={styles.commentBtnText}>
-              //
-            </Text> */}
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -280,12 +260,7 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     paddingTop: 32,
-    // paddingBottom: 16,
     paddingHorizontal: 16,
-    // justifyContent: "flex-end",
-    // paddingBottom: 34,
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "#fff",
   },
   image: {
@@ -304,10 +279,8 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     marginBottom: 24,
-    // alignItems: "flex-start",
   },
   avatar: {
-    // marginRight: 16,
     width: 28,
     height: 28,
     resizeMode: "contain",
@@ -317,7 +290,6 @@ const styles = StyleSheet.create({
   commentTextContainer: {
     flexShrink: 1,
     padding: 16,
-    // width: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.03)",
     borderRadius: 6,
   },
@@ -339,9 +311,6 @@ const styles = StyleSheet.create({
     bottom: 16,
     right: 16,
     left: 16,
-    // flexDirection: "row",
-    // width: "100%",
-    // justifyContent: "flex-end",
   },
   input: {
     padding: 16,

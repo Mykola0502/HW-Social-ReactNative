@@ -8,18 +8,15 @@ import {
   Text,
   View,
   TextInput,
-  ImageBackground,
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Dimensions,
-  Button,
   Image,
 } from "react-native";
 
-import { collection, addDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { db, storage } from "../../firebase/config";
@@ -41,7 +38,6 @@ export const CreatePostsScreen = ({ navigation }) => {
   const [photo, setPhoto] = useState("");
   const [location, setLocation] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
-  // const [commentsCount, setCommentsCount] = useState(null);
 
   const { userId, login } = useSelector((state) => state.auth);
 
@@ -290,24 +286,6 @@ export const CreatePostsScreen = ({ navigation }) => {
               Опублікувати
             </Text>
           </TouchableOpacity>
-
-          {/* <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={getPostFromFirestore}
-            style={{
-              marginTop: 10,
-              backgroundColor: "#b0e798",
-            }}
-          >
-            <Text
-              style={{
-                paddingVertical: 10,
-                color: "#d47575",
-              }}
-            >
-              Get Post
-            </Text>
-          </TouchableOpacity> */}
         </View>
         <TouchableOpacity
           activeOpacity={0.7}
@@ -334,24 +312,17 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     paddingHorizontal: 16,
     justifyContent: "flex-end",
-    // paddingBottom: 34,
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "#fff",
   },
   cameraContainer: {
     height: 240,
-    // backgroundColor: "red",
     borderRadius: 8,
     overflow: "hidden",
   },
   camera: {
     flex: 1,
-    // marginHorizontal: 16,
-    // height: 240,
     alignItems: "center",
     justifyContent: "center",
-    // borderRadius: 8,
     backgroundColor: "#ffffff",
   },
   takePhotoContainer: {
@@ -366,8 +337,6 @@ const styles = StyleSheet.create({
   buttonSnap: {
     width: 50,
     height: 50,
-    // borderWidth: 1,
-    // borderColor: "#fff",
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -383,14 +352,12 @@ const styles = StyleSheet.create({
   input: {
     paddingTop: 16,
     paddingBottom: 15,
-    // backgroundColor: "#F6F6F6",
     color: "#212121",
     // fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     borderBottomWidth: 1,
     borderColor: "#E8E8E8",
-    // borderRadius: 8,
   },
   inputPlaceWrapper: {
     position: "relative",
@@ -407,17 +374,14 @@ const styles = StyleSheet.create({
     marginTop: 32,
     paddingVertical: 16,
     borderRadius: 100,
-    // backgroundColor: "#F6F6F6",
   },
   textPublishBtn: {
-    // color: "#BDBDBD",
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     textAlign: "center",
   },
   trashBtn: {
-    // marginTop: "auto",
     marginLeft: "auto",
     marginRight: "auto",
     width: 70,

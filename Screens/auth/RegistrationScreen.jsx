@@ -11,8 +11,6 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Dimensions,
-  Button,
   Image,
 } from "react-native";
 
@@ -34,7 +32,6 @@ export const RegistrationScreen = ({ navigation }) => {
   // const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [isHiddenPassword, setisHiddenPassword] = useState(true);
   const [state, setState] = useState(initialState);
-  // const [avatar, setAvatar] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -44,7 +41,6 @@ export const RegistrationScreen = ({ navigation }) => {
   };
 
   const addAvatar = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -126,7 +122,6 @@ export const RegistrationScreen = ({ navigation }) => {
                     style={styles.deleteAvatarBtn}
                   >
                     <Image
-                      // style={styles.closeImg}
                       source={require("../../assets/icons/deleteAvatar.png")}
                     />
                   </TouchableOpacity>
@@ -137,7 +132,6 @@ export const RegistrationScreen = ({ navigation }) => {
                     style={styles.addAvatarBtn}
                   >
                     <Image
-                      // style={styles.closeImg}
                       source={require("../../assets/icons/addAvatar.png")}
                     />
                   </TouchableOpacity>
@@ -147,7 +141,7 @@ export const RegistrationScreen = ({ navigation }) => {
                 <Text style={styles.formTitle}>Реєстрація</Text>
                 <TouchableOpacity
                   activeOpacity={0.7}
-                  //   onPress={() => setisHiddenPassword(!isHiddenPassword)}
+                  // onPress={() => {}}
                   style={styles.closeImgBtn}
                 >
                   <Image
@@ -284,24 +278,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "flex-end",
   },
   image: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "flex-end",
-    // alignItems: "center",
-    // width: "100%",
   },
   formWrapper: {
-    // paddingTop: 92,
     paddingHorizontal: 16,
     paddingBottom: 45,
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    // justifyContent: "flex-end",
   },
   avatarWrapper: {
     position: "relative",
@@ -318,15 +306,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: -12.5,
     bottom: 14,
-    // justifyContent: "center",
-    // height: "100%",
   },
   deleteAvatarBtn: {
     position: "absolute",
     right: -17.18,
     bottom: 8.82,
-    // justifyContent: "center",
-    // height: "100%",
   },
   titleWrapper: {
     position: "relative",
@@ -337,7 +321,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Medium",
     fontSize: 30,
     lineHeight: 35,
-    // fontWeight: 500,
     textAlign: "center",
   },
   closeImgBtn: {
@@ -359,16 +342,12 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    // fontWeight: 400,
     borderWidth: 1,
     borderColor: "#E8E8E8",
     borderRadius: 8,
   },
   inputPasswordWrapper: {
     position: "relative",
-    // flexDirection: "row",
-    // width: "100%",
-    // justifyContent: "flex-end",
   },
   passwordBtn: {
     position: "absolute",
@@ -382,7 +361,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    // fontWeight: 400,
   },
   registerBtn: {
     marginTop: 43,
@@ -405,9 +383,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    // fontWeight: 400,
     textAlign: "center",
-    // backgroundColor: "#000000c0",
   },
   containerInfo: {
     justifyContent: "center",
@@ -418,8 +394,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
-    // fontWeight: 400,
-    // textAlign: "center",
   },
   linkLogin: {
     color: "#0000ff",

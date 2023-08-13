@@ -3,26 +3,10 @@ import MapView, { Marker } from "react-native-maps";
 
 import {
   StyleSheet,
-  Text,
   View,
-  TextInput,
-  ImageBackground,
-  TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-  TouchableWithoutFeedback,
-  Dimensions,
-  Button,
-  Image,
 } from "react-native";
 
 export const MapScreen = ({ route }) => {
-  // useEffect(() => {
-  //   if (route.params) {
-  //     // setPosts((prevState) => [...prevState, route.params]);
-  //   }
-  // }, [route.params]);
 
   const { latitude, longitude } = route.params.location;
 
@@ -54,11 +38,6 @@ export const MapScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: 32,
-    // paddingHorizontal: 16,
-    // paddingBottom: 34,
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "#fff",
   },
 });

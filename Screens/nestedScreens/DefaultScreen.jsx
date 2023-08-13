@@ -5,15 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
-  ImageBackground,
   TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-  TouchableWithoutFeedback,
-  Dimensions,
-  Button,
   Image,
   FlatList,
 } from "react-native";
@@ -106,47 +98,6 @@ export const DefaultScreen = ({ route, navigation }) => {
       <FlatList
         data={posts}
         keyExtractor={(item, idx) => idx.toString()}
-        // renderItem={({ item }) => {
-        //   return (
-        //     <View style={{ marginTop: 32 }}>
-        //       <Image source={{ uri: item.photo }} style={styles.postPhoto} />
-        //       <Text style={styles.postName}>{item.name}</Text>
-        //       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        //         <TouchableOpacity
-        //           onPress={() =>
-        //             navigation.navigate("Comments", {
-        //               postId: item.id,
-        //               authorPostId: item.userId,
-        //             })
-        //           }
-        //           style={{
-        //             marginRight: "auto",
-        //             flexDirection: "row",
-        //             alignItems: "center",
-        //           }}
-        //         >
-        //           <Image
-        //             source={require("../../assets/icons/comments.png")}
-        //             style={{ width: 24, height: 24 }}
-        //           />
-        //           <Text style={styles.commentsCount}>0</Text>
-        //         </TouchableOpacity>
-        //         <TouchableOpacity
-        //           onPress={() =>
-        //             navigation.navigate("Map", { location: item.location })
-        //           }
-        //           style={{ flexDirection: "row", alignItems: "center" }}
-        //         >
-        //           <Image
-        //             source={require("../../assets/icons/mapPin.png")}
-        //             style={{ width: 24, height: 24 }}
-        //           />
-        //           <Text style={styles.place}>{item.place}</Text>
-        //         </TouchableOpacity>
-        //       </View>
-        //     </View>
-        //   );
-        // }}
         renderItem={({ item }) => (
           <View style={{ marginTop: 32 }}>
             <Image source={{ uri: item.photo }} style={styles.postPhoto} />
@@ -216,7 +167,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 32,
     paddingHorizontal: 16,
-    // paddingBottom: 34,
     backgroundColor: "#fff",
   },
   userWrapper: {

@@ -7,15 +7,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   ImageBackground,
   TouchableOpacity,
-  Platform,
-  KeyboardAvoidingView,
-  Keyboard,
-  TouchableWithoutFeedback,
-  Dimensions,
-  Button,
   Image,
   FlatList,
 } from "react-native";
@@ -23,7 +16,6 @@ import {
 import {
   collection,
   query,
-  getDocs,
   onSnapshot,
   orderBy,
   where,
@@ -57,7 +49,7 @@ export const ProfileScreen = ({ route, navigation }) => {
     });
 
     /**
-     *      Варіант 3  (пошук по умові)
+     *      Варіант 2 (пошук по умові)
      */
     // const q = query(collection(db, "posts"), orderBy("createdDate", "desc"));
     // onSnapshot(q, (data) => {
@@ -157,24 +149,16 @@ export const ProfileScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingTop: 32,
-    // paddingHorizontal: 16,
-    // paddingBottom: 34,
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "#fff",
   },
   bgImage: {
     flex: 1,
     resizeMode: "cover",
     justifyContent: "flex-end",
-    // alignItems: "center",
-    // width: "100%",
   },
   postsContent: {
     position: "relative",
     marginTop: 147,
-    // paddingTop: 92,
     paddingHorizontal: 16,
     paddingBottom: 43,
     backgroundColor: "#ffffff",
@@ -191,7 +175,6 @@ const styles = StyleSheet.create({
   userPhoto: {
     marginTop: -60,
     marginBottom: 32,
-    // marginHorizontal: "auto",
     resizeMode: "contain",
     width: 120,
     height: 120,
