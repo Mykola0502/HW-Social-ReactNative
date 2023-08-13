@@ -30,9 +30,6 @@ const initialState = {
 };
 
 export const RegistrationScreen = ({ navigation }) => {
-  // console.log(Platform.OS);
-  // console.log(Keyboard.isVisible());
-
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   // const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [isHiddenPassword, setisHiddenPassword] = useState(true);
@@ -55,8 +52,6 @@ export const RegistrationScreen = ({ navigation }) => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
       setState({ ...state, avatar: result.assets[0].uri });
     }
@@ -68,7 +63,6 @@ export const RegistrationScreen = ({ navigation }) => {
 
   const handleSubmit = () => {
     keyboardHide();
-    console.log(state);
     dispatch(authSignUpUser(state));
     setState(initialState);
   };
@@ -82,7 +76,6 @@ export const RegistrationScreen = ({ navigation }) => {
   const keyboardDidHide = () => {
     keyboardHide();
     // setKeyboardHeight(0);
-    // console.log("Клавіатура схована");
   };
 
   useEffect(() => {

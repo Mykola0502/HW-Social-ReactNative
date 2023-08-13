@@ -10,8 +10,6 @@ import { store } from "./redux/store";
 import { Main } from "./components/Main";
 
 export default function App() {
-  // console.log("Android");
-
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("./assets/fonts/Roboto-Medium.ttf"),

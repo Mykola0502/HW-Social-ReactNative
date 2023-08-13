@@ -20,15 +20,11 @@ import {
 export const MapScreen = ({ route }) => {
   // useEffect(() => {
   //   if (route.params) {
-  //     console.log("route.params", route.params);
   //     // setPosts((prevState) => [...prevState, route.params]);
   //   }
   // }, [route.params]);
 
   const { latitude, longitude } = route.params.location;
-  // console.log("route.params", route.params.location);
-  // console.log("latitude", latitude);
-  // console.log("longitude", longitude);
 
   return (
     <View style={styles.container}>

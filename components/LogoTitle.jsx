@@ -3,7 +3,6 @@ import React from "react";
 import { StyleSheet, Text } from "react-native";
 
 export const LogoTitle = (props) => {
-  //   console.log(props);
   return <Text style={styles.title}>{props.children}</Text>;
 };
 

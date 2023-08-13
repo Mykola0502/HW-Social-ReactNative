@@ -54,24 +54,18 @@ export const CreatePostsScreen = ({ navigation }) => {
 
   // const keyboardDidHide = () => {
   //   keyboardHide();
-  //   // console.log("Клавіатура схована");
   // };
 
   const takePhoto = async () => {
     const photo = await camera.takePictureAsync();
     const location = await Location.getCurrentPositionAsync({});
-    // console.log("location.latitude", location.coords.latitude);
-    // console.log("location.longitude", location.coords.longitude);
     setLocation(location.coords);
     setPhoto(photo.uri);
   };
 
   const publishPost = () => {
-    // console.log(state);
-    // console.log("navigation", navigation);
     keyboardHide();
     const newPost = { ...state, photo, location };
-    console.log("newPost", newPost);
     uploadPostToServer();
     navigation.navigate("DefaultScreen");
     setState(initialState);
@@ -107,7 +101,6 @@ export const CreatePostsScreen = ({ navigation }) => {
 
       const storageRef = ref(storage, `postImage/${uniquePostId}`);
       const data = await uploadBytes(storageRef, file);
-      // console.log("data", data);
 
       const processedPhoto = await getDownloadURL(storageRef);
 
@@ -123,28 +116,9 @@ export const CreatePostsScreen = ({ navigation }) => {
     setPhoto("");
   };
 
-  // const getPostFromFirestore = async () => {
-  //   const ref1 = doc(db, "posts", "lRSFQPOEQjXKQZXSPsb4");
-  //   console.log("ref1", ref1);
-  //   const docSnap = await getDoc(ref1);
-  //   console.log("docSnap", docSnap.data());
-  //   // try {
-  //   //   const snapshot = await getDocs(collection(db, "posts"));
-  //   //   console.log("snapshot", snapshot);
-  //   //   // Перевіряємо у консолі отримані дані
-  //   //   // snapshot.forEach((doc) => console.log(`${doc.id} =>`, doc.data()));
-  //   //   // Повертаємо масив обʼєктів у довільній формі
-  //   //   // return snapshot.map((doc) => ({ id: doc.id, data: doc.data() }));
-  //   // } catch (error) {
-  //   //   console.log(error);
-  //   // }
-  // };
-
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-
-      console.log("status", status);
 
       // await MediaLibrary.requestPermissionsAsync();
 
@@ -160,7 +134,6 @@ export const CreatePostsScreen = ({ navigation }) => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       // let { status } = await Location.requestPermissionsAsync();
-      // console.log("status", status);
       if (status !== "granted") {
         console.log("Permission to access location was denied");
         return;

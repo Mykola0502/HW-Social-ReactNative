@@ -31,8 +31,6 @@ import {
 import { db } from "../../firebase/config";
 
 export const DefaultScreen = ({ route, navigation }) => {
-  console.log(Platform.OS);
-
   const [posts, setPosts] = useState([]);
 
   const { login, userId, email, avatar } = useSelector((state) => state.auth);
@@ -42,15 +40,11 @@ export const DefaultScreen = ({ route, navigation }) => {
      *      Варіант 1  (отримати всі документи колекції)
      */
     //   const { query } = await getDocs(collection(db, "posts"));
-    //   // console.log("query", query);
     //   onSnapshot(query, (querySnapshot) => {
     //     const updatingPosts = [];
     //     querySnapshot.forEach((doc) => {
-    //       // console.log("doc", doc);
-    //       // console.log("doc.id", doc.id);
     //       updatingPosts.push({ ...doc.data(), id: doc.id });
     //     });
-    //     // console.log("updatingPosts", updatingPosts);
     //     setPosts(updatingPosts);
     //   });
 
@@ -58,13 +52,9 @@ export const DefaultScreen = ({ route, navigation }) => {
      *      Варіант 2  (пошук по умові)
      */
     const q = query(collection(db, "posts"), orderBy("createdDate", "desc"));
-    // console.log("q", q);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const updatingPosts = [];
       querySnapshot.forEach((doc) => {
-        // console.log("doc", doc);
-        // console.log("doc.id", doc.id);
-
         updatingPosts.push({ ...doc.data(), id: doc.id });
       });
       setPosts(updatingPosts);
@@ -75,7 +65,6 @@ export const DefaultScreen = ({ route, navigation }) => {
      */
     // const q = query(collection(db, "posts"), orderBy("createdDate", "desc"));
     // onSnapshot(q, (data) => {
-    //   // console.log("data", data.docs);
     //   setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     // });
   };
@@ -93,11 +82,8 @@ export const DefaultScreen = ({ route, navigation }) => {
   };
 
   useEffect(() => {
-    console.log("useEffect Default");
     getAllPosts();
   }, []);
-
-  console.log("posts", posts);
 
   return (
     <View style={styles.container}>
@@ -121,7 +107,6 @@ export const DefaultScreen = ({ route, navigation }) => {
         data={posts}
         keyExtractor={(item, idx) => idx.toString()}
         // renderItem={({ item }) => {
-        //   console.log("item", item);
         //   return (
         //     <View style={{ marginTop: 32 }}>
         //       <Image source={{ uri: item.photo }} style={styles.postPhoto} />

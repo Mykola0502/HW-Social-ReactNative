@@ -42,21 +42,18 @@ export const CommentsScreen = ({ route }) => {
   // const [commentsCount, setCommentsCount] = useState(0);
 
   const { postId, authorPostId, photoUri } = route.params;
-  // console.log("route.params", route.params);
 
   const { login, userId, email, avatar } = useSelector((state) => state.auth);
 
   let commentsCount = allComments.length;
 
   const updatePostCommentsCounter = async (collectionName, docId) => {
-    console.log("count", commentsCount);
     try {
       const ref = doc(db, collectionName, docId);
 
       await updateDoc(ref, {
         commentsCount: commentsCount,
       });
-      console.log("counter updated");
     } catch (error) {
       console.log(error);
     }
@@ -92,13 +89,11 @@ export const CommentsScreen = ({ route }) => {
        *    без створення підколекції (перезаписує попередній коментар)
        */
       // const ref = doc(db, "posts", postId);
-      // console.log("ref", ref);
       // await updateDoc(ref, {
       //   comment,
       //   login,
       // });
 
-      // console.log("document updated");
       setComment("");
       keyboardHide();
 
@@ -118,16 +113,11 @@ export const CommentsScreen = ({ route }) => {
       // const { query } = await getDocs(
       //   collection(db, "posts", postId, "comments")
       // );
-      // console.log("query", query);
       // onSnapshot(query, (querySnapshot) => {
-      //   console.log("1");
       //   const getComments = [];
       //   querySnapshot.forEach((doc) => {
-      //     console.log("doc", doc);
-      //     // console.log("doc.id", doc.id);
       //     getComments.push({ ...doc.data(), id: doc.id });
       //   });
-      //   console.log("getComments", getComments);
       //   setAllComments(getComments);
       // });
 
@@ -141,17 +131,12 @@ export const CommentsScreen = ({ route }) => {
           // , "desc"
         )
       );
-      // console.log("q", q);
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const getComments = [];
         querySnapshot.forEach((doc) => {
-          // console.log("doc", doc);
-          // console.log("doc.id", doc.id);
-
           getComments.push({ ...doc.data(), id: doc.id });
         });
 
-        console.log("getComments", getComments);
         setAllComments(getComments);
       });
     } catch (error) {
@@ -169,7 +154,6 @@ export const CommentsScreen = ({ route }) => {
   // }, [isState]);
 
   useEffect(() => {
-    console.log("useEffect CommentsScreen");
     getAllComments();
   }, []);
 
@@ -213,11 +197,6 @@ export const CommentsScreen = ({ route }) => {
             data={allComments}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => {
-              // console.log(
-              //   "authorPostId === item.authorCommentId",
-              //   authorPostId === item.authorCommentId
-              // );
-              console.log("item", item);
               return (
                 <View
                   style={{

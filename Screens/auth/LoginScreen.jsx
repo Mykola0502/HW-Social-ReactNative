@@ -27,9 +27,6 @@ const initialState = {
 };
 
 export const LoginScreen = ({ navigation }) => {
-  // console.log(Platform.OS);
-  // console.log(navigation);
-
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [isHiddenPassword, setisHiddenPassword] = useState(true);
   const [state, setState] = useState(initialState);
@@ -43,14 +40,12 @@ export const LoginScreen = ({ navigation }) => {
 
   const handleSubmit = () => {
     keyboardHide();
-    // console.log(state);
     dispatch(authSignInUser(state));
     setState(initialState);
   };
 
   const keyboardDidHide = () => {
     keyboardHide();
-    // console.log("Клавіатура схована");
   };
 
   useEffect(() => {

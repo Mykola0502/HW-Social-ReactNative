@@ -48,14 +48,11 @@ export const ProfileScreen = ({ route, navigation }) => {
       orderBy("createdDate", "desc"),
       where("userId", "==", userId)
     );
-    // console.log("q", q);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const allUserPosts = [];
       querySnapshot.forEach((doc) => {
-        // console.log("postValue", doc.value());
         allUserPosts.push({ ...doc.data(), id: doc.id });
       });
-      // console.log("allUserPosts", allUserPosts);
       setUserPosts(allUserPosts);
     });
 
@@ -64,13 +61,11 @@ export const ProfileScreen = ({ route, navigation }) => {
      */
     // const q = query(collection(db, "posts"), orderBy("createdDate", "desc"));
     // onSnapshot(q, (data) => {
-    //   // console.log("data", data.docs);
     //   setPosts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     // });
   };
 
   useEffect(() => {
-    console.log("useEffect Profile");
     getUserPosts();
   }, []);
 
