@@ -44,7 +44,7 @@ export const CommentsScreen = ({ route }) => {
   const { postId, authorPostId, photoUri } = route.params;
   // console.log("route.params", route.params);
 
-  const { login, userId, email } = useSelector((state) => state.auth);
+  const { login, userId, email, avatar } = useSelector((state) => state.auth);
 
   let commentsCount = allComments.length;
 
@@ -72,6 +72,7 @@ export const CommentsScreen = ({ route }) => {
       await addDoc(collection(db, "posts", postId, "comments"), {
         comment,
         login: nickName,
+        userAvatar: avatar,
         authorCommentId: userId,
         createdDate: Date.now(),
       });
@@ -216,6 +217,7 @@ export const CommentsScreen = ({ route }) => {
               //   "authorPostId === item.authorCommentId",
               //   authorPostId === item.authorCommentId
               // );
+              console.log("item", item);
               return (
                 <View
                   style={{
@@ -230,7 +232,11 @@ export const CommentsScreen = ({ route }) => {
                       marginLeft: userId === item.authorCommentId ? 16 : 0,
                       marginRight: userId === item.authorCommentId ? 0 : 16,
                     }}
-                    source={{}}
+                    source={
+                      item.userAvatar
+                        ? { uri: item.userAvatar }
+                        : require("../../assets/icons/userIcon.png")
+                    }
                   />
                   <View style={styles.commentTextContainer}>
                     <Text style={styles.commentText}>{item.comment}</Text>
@@ -245,30 +251,6 @@ export const CommentsScreen = ({ route }) => {
             }}
           />
         </SafeAreaView>
-
-        {/* <View style={styles.comments}> */}
-        {/* <View style={styles.commentContainer}>
-            <Image style={styles.avatar} source={{}} />
-            <View style={styles.commentTextContainer}>
-              <Text style={styles.commentText}>
-                Really love your most recent photo. I've been trying to capture
-                the same thing for a few months and would love some tips!
-              </Text>
-              <Text style={styles.metaInfo}>09 червня, 2020 | 08:40</Text>
-            </View>
-          </View> */}
-        {/* <View style={styles.commentContainer}>
-            <Image style={styles.avatar} source={{}} />
-            <View style={styles.commentTextContainer}>
-              <Text style={styles.commentText}>
-                A fast 50mm like f1.8 would help with the bokeh. I’ve been using
-                primes as they tend to get a bit sharper images.
-              </Text>
-              <Text style={styles.metaInfo}>09 червня, 2020 | 09:14</Text>
-            </View>
-          </View> */}
-        {/* </View> */}
-
         <View style={styles.inputCommentWrapper}>
           <TextInput
             style={styles.input}
@@ -349,6 +331,7 @@ const styles = StyleSheet.create({
     // marginRight: 16,
     width: 28,
     height: 28,
+    resizeMode: "contain",
     borderRadius: 28,
     backgroundColor: "#e7e7e7",
   },

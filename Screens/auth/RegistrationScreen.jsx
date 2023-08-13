@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -15,13 +16,14 @@ import {
   Image,
 } from "react-native";
 
-import { useDispatch } from "react-redux";
+import * as ImagePicker from "expo-image-picker";
 
 import { authSignUpUser } from "../../redux/auth/authOperations";
 
 import bgImage from "../../assets/images/bgImage.png";
 
 const initialState = {
+  avatar: null,
   login: "",
   email: "",
   password: "",
@@ -35,12 +37,33 @@ export const RegistrationScreen = ({ navigation }) => {
   // const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [isHiddenPassword, setisHiddenPassword] = useState(true);
   const [state, setState] = useState(initialState);
+  // const [avatar, setAvatar] = useState(null);
 
   const dispatch = useDispatch();
 
   const keyboardHide = () => {
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+  };
+
+  const addAvatar = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setState({ ...state, avatar: result.assets[0].uri });
+    }
+  };
+
+  const deleteAvatar = () => {
+    setState({ ...state, avatar: null });
   };
 
   const handleSubmit = () => {
@@ -94,6 +117,39 @@ export const RegistrationScreen = ({ navigation }) => {
                 marginBottom: isShowKeyboard ? -142 : 0,
               }}
             >
+              <View style={styles.avatarWrapper}>
+                <View style={{ borderRadius: 16, overflow: "hidden" }}>
+                  {state.avatar && (
+                    <Image
+                      source={{ uri: state.avatar }}
+                      style={{ width: 120, height: 120 }}
+                    />
+                  )}
+                </View>
+                {state.avatar ? (
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={deleteAvatar}
+                    style={styles.deleteAvatarBtn}
+                  >
+                    <Image
+                      // style={styles.closeImg}
+                      source={require("../../assets/icons/deleteAvatar.png")}
+                    />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={addAvatar}
+                    style={styles.addAvatarBtn}
+                  >
+                    <Image
+                      // style={styles.closeImg}
+                      source={require("../../assets/icons/addAvatar.png")}
+                    />
+                  </TouchableOpacity>
+                )}
+              </View>
               <View style={styles.titleWrapper}>
                 <Text style={styles.formTitle}>Реєстрація</Text>
                 <TouchableOpacity
@@ -246,13 +302,38 @@ const styles = StyleSheet.create({
     // width: "100%",
   },
   formWrapper: {
-    paddingTop: 92,
+    // paddingTop: 92,
     paddingHorizontal: 16,
     paddingBottom: 45,
     backgroundColor: "#ffffff",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     // justifyContent: "flex-end",
+  },
+  avatarWrapper: {
+    position: "relative",
+    marginTop: -60,
+    marginBottom: 32,
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: 120,
+    height: 120,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 16,
+  },
+  addAvatarBtn: {
+    position: "absolute",
+    right: -12.5,
+    bottom: 14,
+    // justifyContent: "center",
+    // height: "100%",
+  },
+  deleteAvatarBtn: {
+    position: "absolute",
+    right: -17.18,
+    bottom: 8.82,
+    // justifyContent: "center",
+    // height: "100%",
   },
   titleWrapper: {
     position: "relative",

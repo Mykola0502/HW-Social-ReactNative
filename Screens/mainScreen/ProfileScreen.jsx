@@ -36,7 +36,7 @@ export const ProfileScreen = ({ route, navigation }) => {
   const [userPosts, setUserPosts] = useState([]);
 
   const dispatch = useDispatch();
-  const { userId, login } = useSelector((state) => state.auth);
+  const { userId, login, avatar } = useSelector((state) => state.auth);
 
   const signOut = () => {
     dispatch(authSignOutUser());
@@ -82,7 +82,11 @@ export const ProfileScreen = ({ route, navigation }) => {
             <Image source={require("../../assets/icons/logOut.png")} />
           </TouchableOpacity>
           <Image
-            source={require("../../assets/images/userPhoto.png")}
+            source={
+              avatar
+                ? { uri: avatar }
+                : require("../../assets/icons/userIcon.png")
+            }
             style={styles.userPhoto}
           />
           <Text style={styles.userName}>{login}</Text>
@@ -193,6 +197,7 @@ const styles = StyleSheet.create({
     marginTop: -60,
     marginBottom: 32,
     // marginHorizontal: "auto",
+    resizeMode: "contain",
     width: 120,
     height: 120,
     borderRadius: 16,

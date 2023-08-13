@@ -35,7 +35,7 @@ export const DefaultScreen = ({ route, navigation }) => {
 
   const [posts, setPosts] = useState([]);
 
-  const { login, userId, email } = useSelector((state) => state.auth);
+  const { login, userId, email, avatar } = useSelector((state) => state.auth);
 
   const getAllPosts = async () => {
     /**
@@ -103,7 +103,11 @@ export const DefaultScreen = ({ route, navigation }) => {
     <View style={styles.container}>
       <View style={styles.userWrapper}>
         <Image
-          source={require("../../assets/images/userPhoto.png")}
+          source={
+            avatar
+              ? { uri: avatar }
+              : require("../../assets/icons/userIcon.png")
+          }
           style={styles.userPhoto}
         />
         <View
@@ -238,6 +242,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
     width: 60,
     height: 60,
+    resizeMode: "contain",
     borderRadius: 16,
   },
   userName: {
