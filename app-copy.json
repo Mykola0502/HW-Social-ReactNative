@@ -11,28 +11,29 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "jsEngine": "jsc",
       "supportsTablet": true
     },
     "android": {
       "jsEngine": "jsc",
+      // "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.mykola0502.HWSocialReactNative"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "232817df-3c02-4e66-a1df-fc898d426178"
-      }
     }
+    // "plugins": [
+    //   [
+    //     "expo-camera",
+    //     {
+    //       "cameraPermission": "Allow  to access your camera."
+    //     }
+    //   ]
+    // ]
   }
 }
